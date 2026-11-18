@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>你的手機為什麼知道你想買什麼？｜演算法生活課</title>
+<meta name="description" content="手機真的在偷聽嗎？從研究結果出發，看懂推薦系統的兩種猜法、三階段流程，以及廣告為什麼會跟著你跑。">
+<link rel="icon" href="../../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/deck.css">
+</head>
+<body>
+<main id="deck">
+
+<!-- 01｜你的手機為什麼知道你想買什麼？ -->
+<section class="slide cover" data-kind="cover" data-explains="演算法">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">推薦演算法與隱私自保入門</p>
+      <h1>你的手機為什麼知道你想買什麼？</h1>
+      <p class="cover-sub">給完全沒有技術背景的你</p>
+      <p class="cover-note">演算法＝電腦照著走的一套規則</p>
+      <p class="hint">按 → 或點右下角箭頭開始</p>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="130" y="20" width="140" height="270" rx="26" class="ink-fill"/><rect x="142" y="44" width="116" height="222" rx="10" class="paper-fill"/>
+      <rect x="156" y="62" width="88" height="56" rx="8" class="mustard-fill"/><path d="M182 78h36l-4 26h-28z" class="ink-stroke" fill="none" stroke-width="4" stroke-linejoin="round"/><path d="M190 78c0-10 20-10 20 0" class="ink-stroke" fill="none" stroke-width="4"/>
+      <rect x="156" y="130" width="88" height="10" rx="5" class="soft-fill"/><rect x="156" y="148" width="60" height="10" rx="5" class="soft-fill"/>
+      <rect x="156" y="172" width="40" height="40" rx="8" class="teal-fill"/><rect x="204" y="172" width="40" height="40" rx="8" class="coral-fill"/>
+      <rect x="156" y="220" width="40" height="34" rx="8" class="soft-fill"/><rect x="204" y="220" width="40" height="34" rx="8" class="soft-fill"/>
+      <circle cx="74" cy="92" r="30" class="coral-fill"/><path d="M60 92l10 10 18-20" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="330" cy="84" r="26" class="teal-fill"/><path d="M330 98s-16-9-16-20a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 20-16 20z" fill="#fff"/>
+      <circle cx="336" cy="220" r="34" class="mustard-fill"/><text x="336" y="234" text-anchor="middle" class="svg-big" fill="#1F2A44">?</text>
+      <path d="M104 104 L140 140" class="dash"/><path d="M306 98 L270 130" class="dash"/><path d="M304 214 L272 200" class="dash"/></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="overview.md glossary.md" data-sources="S3"></footer>
+</section>
+<!-- 02｜你有過這種經驗嗎？ -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">先問一個問題</p>
+      <h2>你有過這種經驗嗎？</h2>
+      <ul>
+        <li>剛跟朋友聊到想去露營，滑開 App 就看到帳篷廣告。</li>
+        <li>很多人因此懷疑：手機是不是在偷聽我？</li>
+        <li>今天我們就來找答案。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <g><rect x="20" y="40" width="170" height="64" rx="18" class="soft-fill"/><path d="M50 104l-8 22 26-22z" class="soft-fill"/>
+      <text x="105" y="80" text-anchor="middle" class="svg-txt">好想去露營喔～</text></g>
+      <rect x="220" y="30" width="150" height="262" rx="24" class="ink-fill"/><rect x="232" y="52" width="126" height="218" rx="10" class="paper-fill"/>
+      <rect x="244" y="66" width="102" height="110" rx="8" class="mustard-fill"/>
+      <path d="M268 156 L295 100 L322 156 Z" class="coral-fill"/><path d="M295 100 L295 156" stroke="#fff" stroke-width="3"/>
+      <rect x="244" y="66" width="36" height="16" rx="4" class="ink-fill"/><text x="262" y="78" text-anchor="middle" class="svg-tag" fill="#fff">廣告</text>
+      <text x="295" y="198" text-anchor="middle" class="svg-txt">露營帳篷 特價</text>
+      <rect x="256" y="214" width="78" height="26" rx="13" class="teal-fill"/><text x="295" y="232" text-anchor="middle" class="svg-tag" fill="#fff">立即購買</text>
+      <circle cx="120" cy="210" r="44" class="coral-fill"/><text x="120" y="232" text-anchor="middle" class="svg-big" fill="#fff">?</text>
+      <text x="120" y="290" text-anchor="middle" class="svg-txt">手機在偷聽？</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/phone-listening-myth.md" data-sources="S5"></footer>
+</section>
+<!-- 03｜大學研究：測了 17,000 多個 App -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">研究怎麼說</p>
+      <h2>大學研究：測了 17,000 多個 App</h2>
+      <ul>
+        <li>美國東北大學用自動程式測試熱門 Android App。</li>
+        <li>結果：沒有找到偷錄音，沒有 App 偷開麥克風。</li>
+        <li>但是：約 9,000 個 App 能截圖，有的會把你的畫面傳給別家公司。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="20" y="20" width="360" height="86" rx="16" class="ink-fill"/>
+      <text x="200" y="72" text-anchor="middle" class="svg-huge" fill="#fff">17,000+ 個 App</text>
+      <rect x="20" y="124" width="170" height="176" rx="16" class="teal-soft"/>
+      <rect x="88" y="150" width="34" height="56" rx="17" class="teal-fill"/><path d="M76 190a29 29 0 0 0 58 0M105 220v18" class="teal-stroke" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M60 150 L150 240" stroke="#E4572E" stroke-width="8" stroke-linecap="round"/>
+      <text x="105" y="276" text-anchor="middle" class="svg-txt">沒發現偷錄音</text>
+      <rect x="210" y="124" width="170" height="176" rx="16" class="coral-soft"/>
+      <rect x="236" y="146" width="60" height="96" rx="10" class="ink-fill"/><rect x="243" y="156" width="46" height="72" rx="4" class="paper-fill"/>
+      <path d="M248 162h12M248 162v12M284 222h-12M284 222v-12" class="coral-stroke" stroke-width="4" fill="none"/>
+      <path d="M304 194 h40" class="coral-stroke" stroke-width="5" marker-end="url(#ah)"/>
+      <rect x="336" y="176" width="34" height="36" rx="6" class="coral-fill"/><text x="353" y="200" text-anchor="middle" class="svg-tag" fill="#fff">他</text>
+      <text x="295" y="262" text-anchor="middle" class="svg-txt">約 9,000 個能截圖</text>
+      <text x="295" y="286" text-anchor="middle" class="svg-small">有的會傳給第三方</text>
+      <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#E4572E"/></marker></defs></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/phone-listening-myth.md" data-sources="S5"></footer>
+</section>
+<!-- 04｜答案：一位很懂你的「店員」 -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="推薦系統">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">那為什麼這麼準？</p>
+      <h2>答案：一位很懂你的「店員」</h2>
+      <ul>
+        <li>推薦系統：從多到看不完的東西裡，幫你挑一小串你可能會喜歡的。</li>
+        <li>它不用偷聽，只要看你留下的足跡。</li>
+        <li>購物、追劇、短影音背後都有它。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <g class="soft-fill"><rect x="20" y="30" width="22" height="26" rx="4"/><rect x="50" y="30" width="22" height="26" rx="4"/><rect x="80" y="30" width="22" height="26" rx="4"/><rect x="110" y="30" width="22" height="26" rx="4"/><rect x="140" y="30" width="22" height="26" rx="4"/><rect x="170" y="30" width="22" height="26" rx="4"/><rect x="20" y="64" width="22" height="26" rx="4"/><rect x="50" y="64" width="22" height="26" rx="4"/><rect x="80" y="64" width="22" height="26" rx="4"/><rect x="110" y="64" width="22" height="26" rx="4"/><rect x="140" y="64" width="22" height="26" rx="4"/><rect x="170" y="64" width="22" height="26" rx="4"/><rect x="20" y="98" width="22" height="26" rx="4"/><rect x="50" y="98" width="22" height="26" rx="4"/><rect x="80" y="98" width="22" height="26" rx="4"/><rect x="110" y="98" width="22" height="26" rx="4"/><rect x="140" y="98" width="22" height="26" rx="4"/><rect x="170" y="98" width="22" height="26" rx="4"/><rect x="20" y="132" width="22" height="26" rx="4"/><rect x="50" y="132" width="22" height="26" rx="4"/><rect x="80" y="132" width="22" height="26" rx="4"/><rect x="110" y="132" width="22" height="26" rx="4"/><rect x="140" y="132" width="22" height="26" rx="4"/><rect x="170" y="132" width="22" height="26" rx="4"/><rect x="20" y="166" width="22" height="26" rx="4"/><rect x="50" y="166" width="22" height="26" rx="4"/><rect x="80" y="166" width="22" height="26" rx="4"/><rect x="110" y="166" width="22" height="26" rx="4"/><rect x="140" y="166" width="22" height="26" rx="4"/><rect x="170" y="166" width="22" height="26" rx="4"/></g>
+      <text x="105" y="222" text-anchor="middle" class="svg-small">多到看不完的商品</text>
+      <path d="M200 120 h40" class="ink-stroke" stroke-width="5" marker-end="url(#ah2)"/>
+      <circle cx="300" cy="74" r="28" class="mustard-fill"/><rect x="264" y="104" width="72" height="74" rx="22" class="teal-fill"/>
+      <circle cx="290" cy="72" r="3" class="ink-fill"/><circle cx="310" cy="72" r="3" class="ink-fill"/><path d="M290 84q10 8 20 0" class="ink-stroke" stroke-width="3" fill="none"/>
+      <rect x="250" y="196" width="100" height="70" rx="12" class="paper-fill ink-line"/>
+      <rect x="262" y="210" width="22" height="26" rx="4" class="coral-fill"/><rect x="289" y="210" width="22" height="26" rx="4" class="mustard-fill"/><rect x="316" y="210" width="22" height="26" rx="4" class="teal-fill"/>
+      <text x="300" y="256" text-anchor="middle" class="svg-small">挑給你的</text>
+      <text x="300" y="296" text-anchor="middle" class="svg-txt">推薦系統＝懂你的店員</text>
+      <defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#1F2A44"/></marker></defs></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/recommender-system.md" data-sources="S1 S2 S3 S4"></footer>
+</section>
+<!-- 05｜每個動作都是一個「訊號」 -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="明確回饋,隱含回饋,訊號,回饋">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">你留下的足跡</p>
+      <h2>每個動作都是一個「訊號」</h2>
+      <ul>
+        <li>明確回饋：你直接說，例如打星星、按讚。</li>
+        <li>隱含回饋：你沒說，但系統從行為猜，例如把影片看完。</li>
+        <li>TikTok：看完長影片是強訊號，同國家只是弱訊號。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <g transform="translate(30,200) rotate(-20)"><ellipse cx="0" cy="0" rx="13" ry="20" class="ink-fill" opacity="0.35"/><circle cx="-8" cy="-26" r="4" class="ink-fill" opacity="0.35"/><circle cx="2" cy="-29" r="4" class="ink-fill" opacity="0.35"/><circle cx="11" cy="-25" r="4" class="ink-fill" opacity="0.35"/></g><g transform="translate(92,160) rotate(-20)"><ellipse cx="0" cy="0" rx="13" ry="20" class="ink-fill" opacity="0.44999999999999996"/><circle cx="-8" cy="-26" r="4" class="ink-fill" opacity="0.44999999999999996"/><circle cx="2" cy="-29" r="4" class="ink-fill" opacity="0.44999999999999996"/><circle cx="11" cy="-25" r="4" class="ink-fill" opacity="0.44999999999999996"/></g><g transform="translate(154,200) rotate(-20)"><ellipse cx="0" cy="0" rx="13" ry="20" class="ink-fill" opacity="0.55"/><circle cx="-8" cy="-26" r="4" class="ink-fill" opacity="0.55"/><circle cx="2" cy="-29" r="4" class="ink-fill" opacity="0.55"/><circle cx="11" cy="-25" r="4" class="ink-fill" opacity="0.55"/></g><g transform="translate(216,160) rotate(-20)"><ellipse cx="0" cy="0" rx="13" ry="20" class="ink-fill" opacity="0.65"/><circle cx="-8" cy="-26" r="4" class="ink-fill" opacity="0.65"/><circle cx="2" cy="-29" r="4" class="ink-fill" opacity="0.65"/><circle cx="11" cy="-25" r="4" class="ink-fill" opacity="0.65"/></g><g transform="translate(278,200) rotate(-20)"><ellipse cx="0" cy="0" rx="13" ry="20" class="ink-fill" opacity="0.75"/><circle cx="-8" cy="-26" r="4" class="ink-fill" opacity="0.75"/><circle cx="2" cy="-29" r="4" class="ink-fill" opacity="0.75"/><circle cx="11" cy="-25" r="4" class="ink-fill" opacity="0.75"/></g><g transform="translate(340,160) rotate(-20)"><ellipse cx="0" cy="0" rx="13" ry="20" class="ink-fill" opacity="0.85"/><circle cx="-8" cy="-26" r="4" class="ink-fill" opacity="0.85"/><circle cx="2" cy="-29" r="4" class="ink-fill" opacity="0.85"/><circle cx="11" cy="-25" r="4" class="ink-fill" opacity="0.85"/></g>
+      <rect x="18" y="20" width="160" height="58" rx="14" class="mustard-fill"/><text x="98" y="46" text-anchor="middle" class="svg-txt">⭐ 按讚、評分</text><text x="98" y="66" text-anchor="middle" class="svg-small">明確回饋</text>
+      <rect x="222" y="20" width="160" height="58" rx="14" class="teal-fill"/><text x="302" y="46" text-anchor="middle" class="svg-txt" fill="#fff">▶ 看完影片</text><text x="302" y="66" text-anchor="middle" class="svg-small" fill="#fff">隱含回饋</text>
+      <text x="20" y="268" class="svg-small">強訊號</text><text x="20" y="294" class="svg-small">弱訊號</text>
+      <rect x="76" y="256" width="200" height="14" rx="7" class="soft-fill"/><rect x="76" y="256" width="184" height="14" rx="7" class="coral-fill"/><text x="286" y="268" class="svg-small">看完長影片</text>
+      <rect x="76" y="282" width="200" height="14" rx="7" class="soft-fill"/><rect x="76" y="282" width="40" height="14" rx="7" class="coral-fill"/><text x="286" y="294" class="svg-small">同一個國家</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/signals-and-footprints.md" data-sources="S1 S4"></footer>
+</section>
+<!-- 06｜內容過濾：跟你喜歡的東西很像 -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="內容過濾">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">猜法一</p>
+      <h2>內容過濾：跟你喜歡的東西很像</h2>
+      <ul>
+        <li>你愛看推理小說 → 推薦另一本推理小說。</li>
+        <li>只看東西本身的特徵，不需要別人的資料。</li>
+        <li>缺點：一直推相似的，很難認識新東西。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <g><rect x="30" y="50" width="120" height="160" rx="10" class="ink-fill"/><rect x="42" y="64" width="96" height="80" rx="6" class="paper-fill"/><circle cx="84" cy="98" r="18" class="coral-stroke" fill="none" stroke-width="6"/><path d="M97 111l18 18" class="coral-stroke" stroke-width="7" stroke-linecap="round"/>
+      <text x="90" y="180" text-anchor="middle" class="svg-txt" fill="#fff">你讀過的</text></g>
+      <path d="M164 130 h66" class="ink-stroke" stroke-width="5" marker-end="url(#ah3)"/>
+      <g><rect x="250" y="50" width="120" height="160" rx="10" class="teal-fill"/><rect x="262" y="64" width="96" height="80" rx="6" class="paper-fill"/><circle cx="304" cy="98" r="18" class="coral-stroke" fill="none" stroke-width="6"/><path d="M317 111l18 18" class="coral-stroke" stroke-width="7" stroke-linecap="round"/>
+      <text x="310" y="180" text-anchor="middle" class="svg-txt" fill="#fff">推薦給你</text></g>
+      <g class="svg-tag"><rect x="30" y="232" width="62" height="28" rx="14" class="mustard-fill"/><text x="61" y="251" text-anchor="middle">推理</text>
+      <rect x="98" y="232" width="62" height="28" rx="14" class="mustard-fill"/><text x="129" y="251" text-anchor="middle">長篇</text>
+      <rect x="250" y="232" width="62" height="28" rx="14" class="mustard-fill"/><text x="281" y="251" text-anchor="middle">推理</text>
+      <rect x="318" y="232" width="62" height="28" rx="14" class="mustard-fill"/><text x="349" y="251" text-anchor="middle">長篇</text></g>
+      <text x="200" y="298" text-anchor="middle" class="svg-small">標籤越多相同，分數越高</text>
+      <defs><marker id="ah3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#1F2A44"/></marker></defs></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/content-based-filtering.md" data-sources="S1"></footer>
+</section>
+<!-- 07｜協同過濾：跟你很像的人也喜歡 -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="協同過濾">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">猜法二</p>
+      <h2>協同過濾：跟你很像的人也喜歡</h2>
+      <ul>
+        <li>口味跟你很像的同學都愛這家店 → 你可能也會喜歡。</li>
+        <li>Amazon「買了這個的人也買了⋯」就是這招，商品表事先算好。</li>
+        <li>缺點：全新的東西沒人碰過，就推不出去。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <circle cx="80" cy="60" r="26" class="coral-fill"/><rect x="50" y="88" width="60" height="44" rx="20" class="coral-fill"/><text x="80" y="156" text-anchor="middle" class="svg-txt">你</text>
+      <circle cx="320" cy="60" r="26" class="teal-fill"/><rect x="290" y="88" width="60" height="44" rx="20" class="teal-fill"/><text x="320" y="156" text-anchor="middle" class="svg-txt">口味像你的人</text>
+      <g class="svg-tag"><rect x="140" y="40" width="120" height="30" rx="8" class="mustard-fill"/><text x="200" y="60" text-anchor="middle">🎒 登山包</text>
+      <rect x="140" y="80" width="120" height="30" rx="8" class="mustard-fill"/><text x="200" y="100" text-anchor="middle">🥾 登山鞋</text></g>
+      <path d="M112 70 L136 60 M112 90 L136 96 M288 70 L264 60 M288 90 L264 96" class="ink-stroke" stroke-width="3"/>
+      <rect x="240" y="196" width="140" height="44" rx="10" class="teal-soft"/><text x="310" y="224" text-anchor="middle" class="svg-txt">⛺ 帳篷</text>
+      <path d="M320 134 L320 192" class="teal-stroke" stroke-width="3"/>
+      <path d="M236 218 C170 218 100 220 90 166" class="coral-stroke" stroke-width="4" fill="none" stroke-dasharray="8 6" marker-end="url(#ah4)"/>
+      <text x="150" y="250" text-anchor="middle" class="svg-small">推薦給你！</text>
+      <text x="200" y="298" text-anchor="middle" class="svg-small">「買了這個的人也買了⋯」</text>
+      <defs><marker id="ah4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#E4572E"/></marker></defs></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/collaborative-filtering.md" data-sources="S1 S2"></footer>
+</section>
+<!-- 08｜像選秀節目：從幾十億挑出 10 個 -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">幕後流程</p>
+      <h2>像選秀節目：從幾十億挑出 10 個</h2>
+      <ul>
+        <li>海選：數十億支影片 → 數百到數千支。</li>
+        <li>評審：仔細打分，選出約 10 個給你看。</li>
+        <li>製作人：拿掉你不喜歡的、加點新東西、讓內容多樣。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <path d="M30 30 H370 L310 110 H90 Z" class="soft-fill"/><text x="200" y="66" text-anchor="middle" class="svg-txt">① 海選</text><text x="200" y="90" text-anchor="middle" class="svg-small">數十億 → 數百到數千</text>
+      <path d="M94 118 H306 L262 198 H138 Z" class="mustard-fill"/><text x="200" y="152" text-anchor="middle" class="svg-txt">② 評審打分</text><text x="200" y="176" text-anchor="middle" class="svg-small">選出約 10 個</text>
+      <path d="M142 206 H258 L230 280 H170 Z" class="coral-fill"/><text x="200" y="240" text-anchor="middle" class="svg-txt" fill="#fff">③ 製作人</text><text x="200" y="262" text-anchor="middle" class="svg-small" fill="#fff">最後調整</text>
+      <rect x="166" y="290" width="68" height="24" rx="12" class="ink-fill"/><text x="200" y="307" text-anchor="middle" class="svg-tag" fill="#fff">你的畫面</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/three-stage-pipeline.md" data-sources="S1"></footer>
+</section>
+<!-- 09｜三個平台，各看什麼？ -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">真實案例</p>
+      <h2>三個平台，各看什麼？</h2>
+      <ul>
+        <li>Amazon：你買過的、購物車裡的商品。</li>
+        <li>Netflix：看過什麼、看多久、什麼時段；說明不用年齡與性別。</li>
+        <li>TikTok：按讚、分享、看完沒；追蹤數不是直接因素。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="10" y="30" width="120" height="250" rx="16" class="mustard-fill"/><text x="70" y="70" text-anchor="middle" class="svg-txt">Amazon</text><text x="70" y="130" text-anchor="middle" class="svg-emoji">🛒</text><text x="70" y="190" text-anchor="middle" class="svg-small">買過的</text><text x="70" y="212" text-anchor="middle" class="svg-small">購物車</text>
+      <rect x="140" y="30" width="120" height="250" rx="16" class="coral-fill"/><text x="200" y="70" text-anchor="middle" class="svg-txt" fill="#fff">Netflix</text><text x="200" y="130" text-anchor="middle" class="svg-emoji">🎬</text><text x="200" y="190" text-anchor="middle" class="svg-small" fill="#fff">看多久</text><text x="200" y="212" text-anchor="middle" class="svg-small" fill="#fff">什麼時段</text>
+      <rect x="270" y="30" width="120" height="250" rx="16" class="teal-fill"/><text x="330" y="70" text-anchor="middle" class="svg-txt" fill="#fff">TikTok</text><text x="330" y="130" text-anchor="middle" class="svg-emoji">📱</text><text x="330" y="190" text-anchor="middle" class="svg-small" fill="#fff">看完沒</text><text x="330" y="212" text-anchor="middle" class="svg-small" fill="#fff">按讚分享</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="entities/amazon.md entities/netflix.md entities/tiktok.md" data-sources="S2 S3 S4"></footer>
+</section>
+<!-- 10｜冷啟動與同溫層 -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="冷啟動,同溫層">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">副作用</p>
+      <h2>冷啟動與同溫層</h2>
+      <ul>
+        <li>冷啟動：剛認識你時，只好先推熱門的，或請你先選興趣。</li>
+        <li>同溫層：一直看相似內容，視野越來越窄。</li>
+        <li>TikTok 說會刻意穿插興趣以外的影片，但這是平台自己的說法。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <circle cx="190" cy="160" r="120" class="teal-soft"/><circle cx="190" cy="160" r="120" class="teal-stroke" fill="none" stroke-width="4"/>
+      <circle cx="190" cy="140" r="24" class="coral-fill"/><rect x="164" y="166" width="52" height="40" rx="18" class="coral-fill"/>
+      <text x="110" y="110" text-anchor="middle" class="svg-emoji-s">🐱</text><text x="270" y="110" text-anchor="middle" class="svg-emoji-s">🐱</text><text x="100" y="200" text-anchor="middle" class="svg-emoji-s">🐱</text><text x="280" y="200" text-anchor="middle" class="svg-emoji-s">🐱</text><text x="150" y="250" text-anchor="middle" class="svg-emoji-s">🐱</text><text x="230" y="250" text-anchor="middle" class="svg-emoji-s">🐱</text><text x="190" y="72" text-anchor="middle" class="svg-emoji-s">🐱</text>
+      <text x="360" y="60" text-anchor="middle" class="svg-emoji-s">🎨</text><text x="364" y="280" text-anchor="middle" class="svg-emoji-s">⚽</text><text x="30" y="290" text-anchor="middle" class="svg-emoji-s">🍳</text>
+      <path d="M350 70 L304 102" class="coral-stroke" stroke-width="3" stroke-dasharray="6 5"/>
+      <text x="190" y="314" text-anchor="middle" class="svg-small">泡泡裡全是同一種內容</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/cold-start.md concepts/filter-bubble.md" data-sources="S1 S3 S4"></footer>
+</section>
+<!-- 11｜廣告為什麼會「跟著你跑」？ -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="Cookie,第三方追蹤,裝置指紋,廣告 ID">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">跨 App 的廣告</p>
+      <h2>廣告為什麼會「跟著你跑」？</h2>
+      <ul>
+        <li>Cookie：網站在你瀏覽器裡留的小紀錄。</li>
+        <li>第三方追蹤：別家公司跨網站記錄你。</li>
+        <li>裝置指紋、手機廣告 ID：不用 Cookie 也能認出你。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="70" y="70" width="170" height="200" rx="40" class="teal-fill"/><path d="M110 70 v-20 a45 45 0 0 1 90 0 v20" class="ink-stroke" stroke-width="10" fill="none"/>
+      <rect x="96" y="120" width="118" height="70" rx="14" class="teal-soft"/>
+      <g transform="rotate(-10 120 130)"><rect x="86" y="108" width="84" height="34" rx="8" class="mustard-fill"/><text x="128" y="131" text-anchor="middle" class="svg-tag">Cookie</text></g>
+      <g transform="rotate(8 180 200)"><rect x="138" y="190" width="90" height="34" rx="8" class="coral-fill"/><text x="183" y="213" text-anchor="middle" class="svg-tag" fill="#fff">廣告 ID</text></g>
+      <g transform="rotate(-4 120 236)"><rect x="80" y="226" width="80" height="32" rx="8" class="paper-fill ink-line"/><text x="120" y="248" text-anchor="middle" class="svg-tag">指紋</text></g>
+      <rect x="270" y="30" width="116" height="140" rx="14" class="ink-fill"/><text x="328" y="62" text-anchor="middle" class="svg-tag" fill="#fff">追蹤公司</text>
+      <text x="328" y="138" text-anchor="middle" class="svg-emoji">🗂️</text>
+      <path d="M244 150 C262 150 268 130 276 120" class="ink-stroke" stroke-width="3" fill="none" stroke-dasharray="6 5"/>
+      <text x="328" y="206" text-anchor="middle" class="svg-small">A 網站、B App</text>
+      <text x="328" y="228" text-anchor="middle" class="svg-small">都看得到</text><text x="328" y="250" text-anchor="middle" class="svg-small">同一張貼紙</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/online-tracking.md" data-sources="S6 S8"></footer>
+</section>
+<!-- 12｜一個開關，關掉跨 App 追蹤 -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="IDFA">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">自保 ①  iPhone</p>
+      <h2>一個開關，關掉跨 App 追蹤</h2>
+      <ul>
+        <li>設定 → 隱私權與安全性 → 關閉「允許 App 要求追蹤」。</li>
+        <li>拒絕後 App 拿不到 IDFA（iPhone 的廣告編號）。</li>
+        <li>放心：拒絕追蹤，App 照樣能完整使用。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true"><rect x="110" y="10" width="180" height="300" rx="28" class="ink-fill"/><rect x="122" y="34" width="156" height="254" rx="12" class="paper-fill"/>
+      <text x="136" y="62" class="svg-small">‹ 隱私權與安全性</text>
+      <rect x="132" y="80" width="136" height="40" rx="8" class="soft-fill"/><text x="140" y="105" class="svg-tag">定位服務</text>
+      <rect x="132" y="128" width="136" height="76" rx="8" class="mustard-soft"/><text x="140" y="152" class="svg-tag">允許 App</text><text x="140" y="172" class="svg-tag">要求追蹤</text>
+      <rect x="222" y="150" width="38" height="22" rx="11" class="soft-dark"/><circle cx="234" cy="161" r="9" fill="#fff"/>
+      <text x="140" y="194" class="svg-small">← 關掉它</text>
+      <rect x="132" y="212" width="136" height="40" rx="8" class="soft-fill"/><text x="140" y="237" class="svg-tag">追蹤</text>
+      <rect x="300" y="128" width="92" height="44" rx="10" class="coral-fill"/><text x="346" y="156" text-anchor="middle" class="svg-tag" fill="#fff">關閉 = 拒絕</text>
+      <rect x="8" y="128" width="96" height="44" rx="10" class="teal-fill"/><text x="56" y="156" text-anchor="middle" class="svg-tag" fill="#fff">iPhone</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/privacy-self-defense.md" data-sources="S7"></footer>
+</section>
+<!-- 13｜刪掉你的廣告 ID -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="廣告 ID">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">自保 ②  Android</p>
+      <h2>刪掉你的廣告 ID</h2>
+      <ul>
+        <li>設定 → 隱私權 → 廣告 → 刪除廣告 ID。</li>
+        <li>刪除後，App 只會讀到一串 0。</li>
+        <li>順便檢查 App 權限：用不到的位置、相片、聯絡人就關掉。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true"><rect x="110" y="10" width="180" height="300" rx="28" class="ink-fill"/><rect x="122" y="34" width="156" height="254" rx="12" class="paper-fill"/>
+      <text x="136" y="62" class="svg-small">‹ 廣告</text>
+      <rect x="132" y="80" width="136" height="64" rx="8" class="soft-fill"/><text x="140" y="104" class="svg-small">你的廣告 ID</text><text x="140" y="128" class="svg-tag">（已刪除）</text>
+      <rect x="132" y="154" width="136" height="38" rx="8" class="soft-fill"/><text x="140" y="178" class="svg-tag">重設廣告 ID</text>
+      <rect x="132" y="200" width="136" height="38" rx="8" class="coral-fill"/><text x="140" y="224" class="svg-tag" fill="#fff">刪除廣告 ID</text>
+      <rect x="8" y="128" width="96" height="44" rx="10" class="teal-fill"/><text x="56" y="156" text-anchor="middle" class="svg-tag" fill="#fff">Android</text>
+      <rect x="300" y="88" width="92" height="44" rx="10" class="mustard-fill"/><text x="346" y="116" text-anchor="middle" class="svg-tag">只剩一串 0</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/privacy-self-defense.md" data-sources="S8 S6"></footer>
+</section>
+<!-- 14｜兩個常見迷思 -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">自保 ③  瀏覽器</p>
+      <h2>兩個常見迷思</h2>
+      <ul>
+        <li>迷思：開無痕模式就安全 → 錯，網站還是看得到你的活動。</li>
+        <li>迷思：裝了廣告阻擋器就全擋 → 只能擋一部分。</li>
+        <li>建議：定期清 Cookie，Cookie 通知只按「必要」。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="20" y="30" width="360" height="200" rx="14" class="ink-fill"/><rect x="20" y="30" width="360" height="34" rx="14" class="ink-fill"/>
+      <circle cx="42" cy="47" r="6" class="coral-fill"/><circle cx="62" cy="47" r="6" class="mustard-fill"/><circle cx="82" cy="47" r="6" class="teal-fill"/>
+      <rect x="32" y="70" width="336" height="148" rx="8" class="paper-fill"/>
+      <path d="M150 120 q50 -36 100 0 q-6 34 -50 34 q-44 0 -50 -34z" class="ink-fill"/><circle cx="178" cy="128" r="10" fill="#fff"/><circle cx="222" cy="128" r="10" fill="#fff"/>
+      <text x="200" y="198" text-anchor="middle" class="svg-txt">無痕模式</text>
+      <g transform="translate(300,96)"><circle r="30" class="coral-fill"/><text y="10" text-anchor="middle" class="svg-big" fill="#fff">!</text></g>
+      <rect x="40" y="246" width="320" height="56" rx="12" class="coral-soft"/><text x="200" y="280" text-anchor="middle" class="svg-txt">網站仍看得到你的活動</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/privacy-self-defense.md" data-sources="S6"></footer>
+</section>
+<!-- 15｜你也可以反過來教演算法 -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="演算法">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">自保 ④  調教推薦</p>
+      <h2>你也可以反過來教演算法</h2>
+      <ul>
+        <li>TikTok：長按影片 → 不感興趣，或隱藏某個創作者。</li>
+        <li>Netflix：你的評分和有沒有看完，都會改變推薦。</li>
+        <li>智慧電視、串流裝置也有隱私設定，別忘了。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="40" y="20" width="150" height="270" rx="18" class="ink-fill"/><rect x="52" y="40" width="126" height="230" rx="8" class="teal-soft"/>
+      <path d="M100 130 l40 25 l-40 25z" class="teal-fill"/>
+      <rect x="150" y="150" width="200" height="130" rx="14" class="paper-fill ink-line"/>
+      <text x="168" y="184" class="svg-tag">👎 不感興趣</text><path d="M162 196 H338" class="soft-stroke" stroke-width="2"/>
+      <text x="168" y="222" class="svg-tag">🙈 隱藏這位創作者</text><path d="M162 234 H338" class="soft-stroke" stroke-width="2"/>
+      <text x="168" y="262" class="svg-tag">🎵 隱藏這段音樂</text>
+      <circle cx="120" cy="110" r="22" class="coral-fill" opacity=".85"/><text x="120" y="116" text-anchor="middle" class="svg-small" fill="#fff">長按</text>
+      <g transform="translate(300,70)"><rect x="-60" y="-34" width="120" height="68" rx="14" class="mustard-fill"/><text y="-6" text-anchor="middle" class="svg-tag">⭐⭐⭐⭐☆</text><text y="20" text-anchor="middle" class="svg-small">評分也是調整</text></g></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/privacy-self-defense.md" data-sources="S4 S3 S6"></footer>
+</section>
+<!-- 16｜考考你 -->
+<section class="slide" data-kind="quiz">
+  <div class="inner">
+    <div class="text full">
+      <p class="kicker">小測驗</p>
+      <h2>考考你</h2>
+      <div class="quiz">
+        <div class="q"><p class="q-text"><b>Q1</b> 研究測了 17,000 多個 App，有沒有發現偷錄音？</p><div class="opts"><button class="opt" data-ok="0">有，很多</button><button class="opt" data-ok="1">沒有找到證據</button><button class="opt" data-ok="0">只有 iPhone 有</button></div><p class="q-fb" aria-live="polite"></p></div>
+        <div class="q"><p class="q-text"><b>Q2</b> 「買了這個的人也買了⋯」屬於哪種猜法？</p><div class="opts"><button class="opt" data-ok="0">內容過濾</button><button class="opt" data-ok="1">協同過濾</button><button class="opt" data-ok="0">隨機推薦</button></div><p class="q-fb" aria-live="polite"></p></div>
+        <div class="q"><p class="q-text"><b>Q3</b> 開無痕模式，網站就看不到你的活動了嗎？</p><div class="opts"><button class="opt" data-ok="0">對</button><button class="opt" data-ok="1">不對</button></div><p class="q-fb" aria-live="polite"></p></div>
+      </div>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/phone-listening-myth.md concepts/collaborative-filtering.md concepts/privacy-self-defense.md" data-sources="S5 S2 S6"></footer>
+</section>
+<!-- 17｜重點回顧 -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">今天帶走三件事</p>
+      <h2>重點回顧</h2>
+      <ul>
+        <li>手機多半不是偷聽，而是看你留下的足跡。</li>
+        <li>推薦靠兩種猜法：像你喜歡的、像你的人喜歡的。</li>
+        <li>今天就動手：關追蹤、刪廣告 ID、整理權限。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="20" y="20" width="360" height="80" rx="16" class="teal-fill"/><text x="50" y="72" class="svg-big" fill="#fff">①</text><text x="96" y="68" class="svg-txt" fill="#fff">不是偷聽，是足跡</text>
+      <rect x="20" y="120" width="360" height="80" rx="16" class="mustard-fill"/><text x="50" y="172" class="svg-big">②</text><text x="96" y="168" class="svg-txt">兩種猜法</text>
+      <rect x="20" y="220" width="360" height="80" rx="16" class="coral-fill"/><text x="50" y="272" class="svg-big" fill="#fff">③</text><text x="96" y="268" class="svg-txt" fill="#fff">動手改設定</text></svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="overview.md concepts/privacy-self-defense.md" data-sources="S5 S1 S7 S8"></footer>
+</section>
+<!-- 18｜資料來源（deck.js 自動填入） -->
+<section class="slide sources" data-kind="sources"></section>
+
+</main>
+<script src="../../assets/sources.js"></script>
+<script src="../../assets/wiki-titles.js"></script>
+<script src="../../assets/deck.js"></script>
+</body>
+</html>

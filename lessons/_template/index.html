@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- ① 改標題：講義標題｜演算法生活課 -->
+<title>講義範本｜演算法生活課</title>
+<!-- ② 改簡介：和首頁卡片上的簡介相同 -->
+<meta name="description" content="新講義的範本：示範封面、內容頁、小測驗、勾選清單與資料來源頁的寫法。">
+<link rel="icon" href="../../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/deck.css">
+</head>
+<body>
+<!--
+  使用方式（詳見 CLAUDE.md 第 6、9 節）：
+  1. cp -r lessons/_template lessons/<小寫英文-slug>
+  2. 依序改寫下面的投影片；不需要的類型直接刪掉，需要更多頁就複製「內容頁」
+  3. 每頁的 footer 寫好 data-wiki（Wiki 頁）與 data-sources（S1、S2⋯）
+  4. 在首頁 index.html 的 LESSONS:START/END 之間加卡片，data-pages＝投影片數
+  5. python3 tools/check.py
+-->
+<main id="deck">
+
+<!-- 01｜封面 -->
+<section class="slide cover" data-kind="cover" data-explains="推薦系統">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">講義類型（例：入門・概念）</p>
+      <h1>用一個問題當標題？</h1>
+      <p class="cover-sub">給完全沒有技術背景的你</p>
+      <p class="cover-note">推薦系統＝幫你從一大堆東西裡挑出可能喜歡的</p>
+      <p class="hint">按 → 或點右下角箭頭開始</p>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+        <rect x="130" y="30" width="140" height="260" rx="26" class="ink-fill"/>
+        <rect x="142" y="54" width="116" height="212" rx="10" class="paper-fill"/>
+        <rect x="156" y="72" width="88" height="56" rx="8" class="mustard-fill"/>
+        <rect x="156" y="142" width="40" height="40" rx="8" class="teal-fill"/>
+        <rect x="204" y="142" width="40" height="40" rx="8" class="coral-fill"/>
+      </svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/recommender-system.md" data-sources="S1"></footer>
+</section>
+
+<!-- 02｜內容頁（最常用；data-privacy="true" 會出現隱私標籤） -->
+<section class="slide" data-kind="content" data-privacy="false" data-explains="內容過濾">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">小標（例：猜法一）</p>
+      <h2>標題寫成一句重點</h2>
+      <ul>
+        <li>每頁兩三個條列就好，字越少越好讀。</li>
+        <li>內容過濾：推薦跟你喜歡的東西很像的東西。</li>
+        <li>每個概念配一個生活比喻。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+        <rect x="40" y="60" width="140" height="180" rx="14" class="teal-soft"/>
+        <rect x="220" y="60" width="140" height="180" rx="14" class="coral-soft"/>
+        <text x="110" y="156" text-anchor="middle" class="svg-txt">比喻 A</text>
+        <text x="290" y="156" text-anchor="middle" class="svg-txt">比喻 B</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/content-based-filtering.md" data-sources="S1"></footer>
+</section>
+
+<!-- 03｜操作步驟頁（用 .path 顯示設定路徑） -->
+<section class="slide" data-kind="content" data-privacy="true" data-explains="廣告 ID">
+  <div class="inner">
+    <div class="text">
+      <p class="kicker">自保 ①</p>
+      <h2>去哪裡按？用路徑標出來</h2>
+      <p class="path"><span>設定</span><i>→</i><span>隱私權</span><i>→</i><span>廣告</span></p>
+      <ul>
+        <li>廣告 ID：手機上專門給廣告用的編號。</li>
+        <li>刪除後，App 只會讀到一串 0。</li>
+      </ul>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 400 320" aria-hidden="true">
+        <rect x="110" y="10" width="180" height="300" rx="28" class="ink-fill"/>
+        <rect x="122" y="34" width="156" height="254" rx="12" class="paper-fill"/>
+        <rect x="132" y="200" width="136" height="38" rx="8" class="coral-fill"/>
+        <text x="200" y="224" text-anchor="middle" class="svg-tag" fill="#fff">刪除廣告 ID</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/privacy-self-defense.md" data-sources="S8"></footer>
+</section>
+
+<!-- 04｜小測驗（data-ok="1" 是正確答案） -->
+<section class="slide" data-kind="quiz">
+  <div class="inner">
+    <div class="text full">
+      <p class="kicker">小測驗</p>
+      <h2>考考你</h2>
+      <div class="quiz">
+        <div class="q"><p class="q-text"><b>Q1</b> 開無痕模式，網站就看不到你的活動了嗎？</p><div class="opts"><button class="opt" data-ok="0">對</button><button class="opt" data-ok="1">不對</button></div><p class="q-fb" aria-live="polite"></p></div>
+      </div>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/privacy-self-defense.md" data-sources="S6"></footer>
+</section>
+
+<!-- 05｜勾選清單（狀態不存檔） -->
+<section class="slide" data-kind="checklist" data-privacy="true" data-explains="Cookie">
+  <div class="inner">
+    <div class="text full">
+      <p class="kicker">動手做</p>
+      <h2>勾選清單範例</h2>
+      <ul class="checklist">
+        <li><label><input type="checkbox"> 刪除 Cookie、清除瀏覽紀錄</label></li>
+        <li><label><input type="checkbox"> Cookie 通知只允許「必要」</label></li>
+      </ul>
+      <p class="check-progress"></p>
+    </div>
+  </div>
+  <footer class="refs" data-wiki="concepts/privacy-self-defense.md" data-sources="S6"></footer>
+</section>
+
+<!-- 06｜資料來源（放最後；內容由 deck.js 自動產生） -->
+<section class="slide sources" data-kind="sources"></section>
+
+</main>
+<script src="../../assets/sources.js"></script>
+<script src="../../assets/wiki-titles.js"></script>
+<script src="../../assets/deck.js"></script>
+</body>
+</html>

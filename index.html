@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演算法生活課｜給沒有技術背景的你的講義庫</title>
+<meta name="description" content="用生活比喻看懂推薦演算法、線上追蹤與隱私自保。每份講義都可以直接在瀏覽器翻頁閱讀，內容全部來自同一個 LLM Wiki 知識庫。">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="assets/favicon.svg" alt="">
+    <div class="brand">演算法生活課<small>ALGO LIFE LESSONS</small></div>
+    <nav><a href="#lessons">講義庫</a><a href="wiki/index.html">知識庫 Wiki</a><a id="repo-link" href="#" hidden>GitHub</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>手機為什麼<em>這麼懂你</em>？<br>一起看懂演算法。</h1>
+      <p>給完全沒有技術背景的你：用店員、選秀節目、背包貼紙這些生活比喻，看懂推薦演算法、線上追蹤，以及你可以怎麼保護自己。每份講義都能直接在瀏覽器打開、用方向鍵翻頁。</p>
+      <span class="tip">✦ 每一頁都標出它根據哪一篇資料</span>
+    </div>
+    <svg viewBox="0 0 400 320" aria-hidden="true">
+      <rect x="130" y="20" width="140" height="270" rx="26" fill="#1F2A44"/><rect x="142" y="44" width="116" height="222" rx="10" fill="#fff"/>
+      <rect x="156" y="62" width="88" height="56" rx="8" fill="#F2C14E"/><path d="M182 78h36l-4 26h-28z" stroke="#1F2A44" fill="none" stroke-width="4" stroke-linejoin="round"/><path d="M190 78c0-10 20-10 20 0" stroke="#1F2A44" fill="none" stroke-width="4"/>
+      <rect x="156" y="130" width="88" height="10" rx="5" fill="#E8E2D6"/><rect x="156" y="148" width="60" height="10" rx="5" fill="#E8E2D6"/>
+      <rect x="156" y="172" width="40" height="40" rx="8" fill="#2A9D8F"/><rect x="204" y="172" width="40" height="40" rx="8" fill="#E4572E"/>
+      <rect x="156" y="220" width="40" height="34" rx="8" fill="#E8E2D6"/><rect x="204" y="220" width="40" height="34" rx="8" fill="#E8E2D6"/>
+      <circle cx="74" cy="92" r="30" fill="#E4572E"/><path d="M60 92l10 10 18-20" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="330" cy="84" r="26" fill="#2A9D8F"/><path d="M330 98s-16-9-16-20a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 20-16 20z" fill="#fff"/>
+      <circle cx="336" cy="220" r="34" fill="#F2C14E"/><text x="336" y="236" text-anchor="middle" font-size="46" font-weight="900" fill="#1F2A44" font-family="sans-serif">?</text>
+    </svg>
+  </section>
+
+  <h2 class="sec-title" id="lessons">✦ 講義庫</h2>
+  <div class="cards">
+<!-- LESSONS:START（新增講義時，在這裡加一張卡片；順序＝建議閱讀順序） -->
+    <a class="card" href="lessons/recsys-intro/index.html" data-lesson="recsys-intro" data-pages="18">
+      <span class="tag coral">入門・概念</span>
+      <h3>你的手機為什麼知道你想買什麼？</h3>
+      <p>手機真的在偷聽嗎？從研究結果出發，看懂推薦系統的兩種猜法、三階段流程，以及廣告為什麼會跟著你跑。</p>
+      <div class="meta"><span>18 頁・含小測驗</span><span class="go">開始 →</span></div>
+    </a>
+    <a class="card" href="lessons/privacy-checkup/index.html" data-lesson="privacy-checkup" data-pages="12">
+      <span class="tag teal">實作・隱私</span>
+      <h3>動手做：幫手機做一次隱私健檢</h3>
+      <p>拿起手機跟著做：關掉跨 App 追蹤、刪除廣告 ID、整理權限、清 Cookie，最後用勾選清單確認自己全部完成。</p>
+      <div class="meta"><span>12 頁・含勾選清單</span><span class="go">開始 →</span></div>
+    </a>
+<!-- LESSONS:END -->
+    <a class="card kb" href="wiki/index.html">
+      <span class="tag mustard">知識庫</span>
+      <h3>演算法生活課 Wiki</h3>
+      <p>所有講義的知識來源：8 篇原始資料整理成的 LLM Wiki，含概念頁、術語表、知識圖譜與每次的檢查紀錄。</p>
+      <div class="meta"><span>26 頁・8 篇來源</span><span class="go">打開 →</span></div>
+    </a>
+  </div>
+
+  <div class="how">
+    <b>這個網站怎麼長出來的？</b> 內容先整理進 <code>knowledge-base/</code>（LLM Wiki），講義只能使用 Wiki 裡有來源的內容；
+    新增講義的規則寫在專案的 <code>CLAUDE.md</code>，AI 照著規則做，再由 <code>tools/check.py</code> 自動檢查。更多講義，陸續加入中…
+  </div>
+
+  <footer class="foot">演算法生活課 Algo Life Lessons ・ 內容整理自公開資料，來源見各講義最後一頁</footer>
+</div>
+<script>
+  // 在 GitHub Pages 上時，自動推算 repo 網址（使用者名稱.github.io/專案名稱/ → github.com/使用者名稱/專案名稱）
+  (function () {
+    const h = location.hostname, m = h.match(/^([^.]+)\.github\.io$/);
+    if (!m) return;
+    const repo = location.pathname.split('/').filter(Boolean)[0] || (m[1] + '.github.io');
+    const a = document.getElementById('repo-link'); a.href = `https://github.com/${m[1]}/${repo}`; a.hidden = false;
+  })();
+</script>
+</body>
+</html>

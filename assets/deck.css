@@ -1,0 +1,93 @@
+/* =========================================================
+   演算法生活課｜講義（簡報）共用樣式
+   - 所有講義共用這一份，不要在個別講義裡寫 <style>。
+   - 顏色只能用下面的 CSS 變數。要加新顏色，先改 CLAUDE.md 的「視覺風格」。
+   ========================================================= */
+:root{
+  --paper:#FBF8F3; --ink:#1F2A44; --coral:#E4572E; --teal:#2A9D8F; --mustard:#F2C14E;
+  --soft:#E8E2D6; --muted:#5B6478; --bg:#EDE7DC;
+  --sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --serif:"Noto Serif TC","Noto Serif CJK TC","Songti TC",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);font-family:var(--sans);color:var(--ink);overflow:hidden}
+
+/* ---- 舞台：固定 1280×720，依視窗等比縮放 ---- */
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#deck{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;background:var(--paper);border-radius:18px;box-shadow:0 10px 40px rgba(31,42,68,.15);
+  display:none;flex-direction:column;overflow:hidden;
+  background-image:radial-gradient(rgba(31,42,68,.06) 1px,transparent 1px);background-size:22px 22px}
+.slide.active{display:flex;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.inner{flex:1;display:flex;gap:40px;padding:64px 72px 24px;align-items:center;min-height:0}
+.text{flex:1.1;min-width:0}.text.full{flex:1}
+.art{flex:.9;display:flex;align-items:center;justify-content:center;min-width:0}
+.art svg{width:100%;max-width:440px;height:auto}
+
+/* ---- 文字 ---- */
+.kicker{font-size:22px;font-weight:700;color:var(--coral);letter-spacing:.06em;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.slide[data-privacy="true"] .kicker::after{content:"🔒 隱私";font-size:15px;font-weight:700;color:#fff;background:var(--teal);padding:3px 12px;border-radius:999px;letter-spacing:0}
+h1{font-family:var(--serif);font-size:62px;line-height:1.25;font-weight:900;margin-bottom:22px}
+h2{font-family:var(--serif);font-size:46px;line-height:1.3;font-weight:900;margin-bottom:30px}
+.text ul{list-style:none;display:flex;flex-direction:column;gap:20px}
+.text ul li{font-size:27px;line-height:1.55;padding-left:36px;position:relative}
+.text ul li::before{content:"";position:absolute;left:4px;top:.55em;width:14px;height:14px;border-radius:4px;background:var(--mustard);transform:rotate(45deg)}
+
+/* ---- 封面 ---- */
+.cover .inner{padding:72px 80px 24px}.cover .text{flex:1.5}.cover .art{flex:0 0 380px}
+.cover-sub{font-size:28px;color:var(--muted);margin-bottom:10px}
+.cover-note{display:inline-block;font-size:22px;background:var(--mustard);padding:6px 16px;border-radius:10px;margin-bottom:28px}
+.hint{font-size:18px;color:var(--muted)}
+
+/* ---- 頁尾：本頁根據（由 deck.js 依 data-wiki / data-sources 產生） ---- */
+.refs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 220px 22px 72px;border-top:1px dashed rgba(31,42,68,.18);font-size:15px}
+.refs-label{color:var(--muted);margin-right:4px}.refs-sep{width:10px}
+.chip{display:inline-block;padding:4px 12px;border-radius:999px;text-decoration:none;font-size:15px;line-height:1.4}
+.chip.wiki{background:rgba(42,157,143,.14);color:#17675d}
+.chip.src{background:rgba(31,42,68,.08);color:var(--ink)}
+a.chip:hover{outline:2px solid currentColor}
+
+/* ---- 元件：小測驗 ---- */
+.quiz{display:flex;flex-direction:column;gap:14px}
+.slide[data-kind="quiz"] h2{margin-bottom:18px}
+.q-text{font-size:26px;margin-bottom:10px}.q-text b{color:var(--coral);margin-right:6px}
+.opts{display:flex;gap:12px;flex-wrap:wrap}
+.opt{font:inherit;font-size:22px;padding:10px 22px;border-radius:12px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.opt:hover{background:var(--soft)}.opt.right{background:var(--teal);border-color:var(--teal);color:#fff}.opt.wrong{background:var(--coral);border-color:var(--coral);color:#fff}
+.q-fb{font-size:19px;min-height:24px;margin-top:4px;color:var(--muted)}
+
+/* ---- 元件：勾選清單（狀態只存在頁面變數，重新整理會清空） ---- */
+.text ul.checklist{list-style:none;display:flex;flex-direction:column;gap:12px}
+.text ul.checklist li{padding-left:0;font-size:24px}.text ul.checklist li::before{display:none}
+.checklist label{display:flex;gap:14px;align-items:flex-start;font-size:24px;line-height:1.45;cursor:pointer;padding:10px 16px;border-radius:12px;background:#fff;border:2px solid var(--soft)}
+.checklist input{width:24px;height:24px;margin-top:5px;accent-color:var(--teal);flex:none}
+.checklist label:has(input:checked){border-color:var(--teal);background:rgba(42,157,143,.08)}
+.check-progress{margin-top:16px;font-size:20px;color:var(--muted)}.check-progress b{color:var(--teal)}
+
+/* ---- 元件：步驟路徑（設定 → 隱私權 → …） ---- */
+.path{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 22px}
+.path span{background:var(--ink);color:#fff;font-size:20px;font-weight:700;padding:6px 14px;border-radius:10px}
+.path i{font-style:normal;color:var(--muted);font-size:20px}
+
+/* ---- 資料來源頁（deck.js 自動填入） ---- */
+.srclist{font-size:20px;line-height:1.5;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist b{display:inline-block;width:38px;color:var(--coral)}.srclist a{color:var(--teal)}
+.cta{margin-top:22px;font-size:22px}.cta a{color:var(--coral);font-weight:700}
+
+/* ---- 插圖用的顏色 class（SVG 內只能用這些，不寫死色碼） ---- */
+.ink-fill{fill:var(--ink)}.paper-fill{fill:#fff}.coral-fill{fill:var(--coral)}.teal-fill{fill:var(--teal)}.mustard-fill{fill:var(--mustard)}.soft-fill{fill:var(--soft)}
+.soft-dark{fill:#B8B1A3}.teal-soft{fill:rgba(42,157,143,.16)}.coral-soft{fill:rgba(228,87,46,.14)}.mustard-soft{fill:rgba(242,193,78,.35)}
+.ink-stroke{stroke:var(--ink)}.coral-stroke{stroke:var(--coral)}.teal-stroke{stroke:var(--teal)}.soft-stroke{stroke:var(--soft)}.ink-line{stroke:var(--ink);stroke-width:3}
+.dash{stroke:var(--ink);stroke-width:3;stroke-dasharray:6 6;opacity:.4}
+svg text{font-family:var(--sans);fill:var(--ink)}
+svg text[fill="#fff"]{fill:#fff}
+.svg-txt{font-size:19px;font-weight:700}.svg-small{font-size:15px}.svg-tag{font-size:16px;font-weight:700}.svg-big{font-size:46px;font-weight:900}
+.svg-huge{font-size:36px;font-weight:900}.svg-emoji{font-size:44px}.svg-emoji-s{font-size:30px}.svg-mono{font-family:monospace;font-size:14px}
+
+/* ---- 導覽列（deck.js 產生） ---- */
+#nav{position:fixed;right:20px;bottom:16px;display:flex;align-items:center;gap:10px;z-index:5}
+#nav button,#nav a{width:44px;height:44px;border-radius:50%;border:none;background:var(--ink);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;text-decoration:none}
+#nav button:disabled{opacity:.3;cursor:default}
+#count{font-size:15px;color:var(--ink);background:rgba(255,255,255,.8);padding:4px 10px;border-radius:999px;font-variant-numeric:tabular-nums}
+#bar{position:fixed;left:0;top:0;height:5px;background:var(--coral);transition:width .3s;z-index:5}

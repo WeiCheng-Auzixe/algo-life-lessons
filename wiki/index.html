@@ -1,0 +1,1374 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>知識庫 Wiki｜演算法生活課</title><link rel="icon" href="../assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FBF8F3;--ink:#1F2A44;--coral:#E4572E;--teal:#2A9D8F;--mustard:#F2C14E;--soft:#E8E2D6;--muted:#5B6478;
+--sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",sans-serif;--serif:"Noto Serif TC","Noto Serif CJK TC",serif}
+*{box-sizing:border-box}body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.75}
+header{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:16px;padding:12px 24px;background:var(--ink);color:#fff}
+header h1{font-family:var(--serif);font-size:20px;margin:0;font-weight:900}header .tag{font-size:13px;opacity:.75}
+.slides-btn{margin-left:auto;background:var(--coral);color:#fff;text-decoration:none;padding:6px 16px;border-radius:999px;font-weight:700;font-size:14px}
+#menu{display:none;background:none;border:1px solid #fff5;color:#fff;border-radius:8px;padding:4px 10px;font:inherit}
+.wrap{display:flex;min-height:calc(100vh - 52px)}
+nav{width:290px;flex:none;border-right:1px solid var(--soft);padding:16px 12px 40px;background:#F5F0E7;position:sticky;top:52px;height:calc(100vh - 52px);overflow:auto}
+nav input{width:100%;padding:8px 12px;border:1px solid var(--soft);border-radius:10px;font:inherit;margin-bottom:10px;background:#fff}
+nav summary{font-weight:700;cursor:pointer;padding:6px 6px;font-size:14px;color:var(--muted)}
+nav ul{list-style:none;margin:0 0 6px;padding:0}nav li a{display:block;padding:4px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:14px;line-height:1.5}
+nav li a:hover{background:var(--soft)}nav li a.on{background:var(--ink);color:#fff}
+main{flex:1;min-width:0;padding:32px clamp(20px,5vw,72px) 80px;max-width:980px}
+article h1{font-family:var(--serif);font-size:32px;line-height:1.35;margin:0 0 18px}
+article h2{font-family:var(--serif);font-size:23px;margin:34px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mustard)}
+article h3{font-size:18px;margin:24px 0 6px}
+article a{color:#17675d;text-decoration:none;border-bottom:1px solid #2A9D8F66}article a:hover{background:#2A9D8F1f}
+article table{border-collapse:collapse;width:100%;margin:12px 0;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border:1px solid var(--soft);padding:7px 10px;text-align:left;vertical-align:top}article th{background:#F0EADF}
+article blockquote{margin:12px 0;padding:8px 16px;border-left:4px solid var(--teal);background:#2A9D8F12}
+article code{background:#EFE9DE;padding:1px 6px;border-radius:5px;font-size:.9em}article pre{background:#1F2A44;color:#F5F0E7;padding:14px;border-radius:10px;overflow:auto}
+article pre code{background:none;color:inherit}
+.src{margin-top:40px;font-size:13px;color:var(--muted)}.warn{color:var(--coral);font-weight:700}
+.graph{width:100%;height:auto;background:#fff;border:1px solid var(--soft);border-radius:14px}
+.graph line{stroke:#1F2A4433;stroke-width:1.3}.graph text{font-size:12px;fill:var(--ink);font-family:var(--sans)}.graph circle{stroke:#fff;stroke-width:2}
+.graph a:hover circle{stroke:var(--ink)}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;margin-bottom:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}.muted{color:var(--muted);font-size:14px}
+#slides-view{position:fixed;left:0;right:0;bottom:0;top:52px;z-index:10;background:#EDE7DC}#slides-view iframe{width:100%;height:100%;border:0;display:block}
+@media(max-width:820px){#menu{display:block}nav{position:fixed;left:0;top:52px;z-index:4;transform:translateX(-100%);transition:.2s;box-shadow:4px 0 20px #0002}
+ nav.open{transform:none}.slides-btn{padding:6px 12px}header .tag{display:none}}
+</style></head><body>
+<header><button id="menu" aria-label="目錄">☰</button><h1>演算法生活課 Wiki</h1><span class="tag">你的手機為什麼知道你想買什麼？｜8 篇來源・26 頁</span><a class="slides-btn" href="../index.html">← 回講義庫</a></header>
+<div class="wrap"><nav><input id="q" type="search" placeholder="搜尋 Wiki…" aria-label="搜尋"><details open><summary>開始</summary><ul><li><a href="#index" data-a="index">目錄（index）</a></li><li><a href="#graph" data-a="graph">知識圖譜</a></li><li><a href="#overview" data-a="overview">總覽：你的手機為什麼知道你想買什麼？</a></li><li><a href="#glossary" data-a="glossary">術語表（白話版）</a></li></ul></details><details open><summary>概念</summary><ul><li><a href="#concepts-recommender-system" data-a="concepts-recommender-system">推薦系統（Recommender System）是什麼？</a></li><li><a href="#concepts-signals-and-footprints" data-a="concepts-signals-and-footprints">訊號與足跡：系統從哪裡知道你喜歡什麼？</a></li><li><a href="#concepts-content-based-filtering" data-a="concepts-content-based-filtering">內容過濾（Content-based Filtering）</a></li><li><a href="#concepts-collaborative-filtering" data-a="concepts-collaborative-filtering">協同過濾（Collaborative Filtering）</a></li><li><a href="#concepts-three-stage-pipeline" data-a="concepts-three-stage-pipeline">三階段流程：從幾十億個挑出 10 個</a></li><li><a href="#concepts-cold-start" data-a="concepts-cold-start">冷啟動（Cold Start）：剛認識你的時候怎麼辦？</a></li><li><a href="#concepts-filter-bubble" data-a="concepts-filter-bubble">同溫層（Filter Bubble）</a></li><li><a href="#concepts-phone-listening-myth" data-a="concepts-phone-listening-myth">手機偷聽迷思：「我才剛說想買，廣告就出現了！」</a></li><li><a href="#concepts-online-tracking" data-a="concepts-online-tracking">線上追蹤：廣告怎麼跟著你跑？</a></li><li><a href="#concepts-privacy-self-defense" data-a="concepts-privacy-self-defense">隱私自保：你可以怎麼做？</a></li></ul></details><details open><summary>實體</summary><ul><li><a href="#entities-amazon" data-a="entities-amazon">Amazon</a></li><li><a href="#entities-netflix" data-a="entities-netflix">Netflix</a></li><li><a href="#entities-tiktok" data-a="entities-tiktok">TikTok</a></li></ul></details><details open><summary>來源摘要 S1–S8</summary><ul><li><a href="#sources-s1-google-recsys" data-a="sources-s1-google-recsys">S1｜Google 機器學習課程：Recommendation Systems</a></li><li><a href="#sources-s2-amazon-item-to-item" data-a="sources-s2-amazon-item-to-item">S2｜Amazon 論文：Item-to-Item Collaborative Filtering（2003）</a></li><li><a href="#sources-s3-netflix" data-a="sources-s3-netflix">S3｜Netflix 說明中心：推薦系統如何運作</a></li><li><a href="#sources-s4-tiktok" data-a="sources-s4-tiktok">S4｜TikTok 官方：How TikTok recommends videos #ForYou（2020-06-18）</a></li><li><a href="#sources-s5-northeastern-listening" data-a="sources-s5-northeastern-listening">S5｜美國東北大學研究：你的手機在偷聽嗎？（2018-07-06）</a></li><li><a href="#sources-s6-ftc-tracking" data-a="sources-s6-ftc-tracking">S6｜美國 FTC：網站和 App 如何蒐集與使用你的資訊</a></li><li><a href="#sources-s7-apple-att" data-a="sources-s7-apple-att">S7｜Apple：App 要求追蹤你的活動時（App 追蹤透明度）</a></li><li><a href="#sources-s8-android-ad-id" data-a="sources-s8-android-ad-id">S8｜Google Play：廣告 ID（Advertising ID）</a></li></ul></details><details open><summary>查詢成果</summary><ul><li><a href="#outputs-slide-outline" data-a="outputs-slide-outline">成果：教學簡報大綱（由 Query 產生、存回 Wiki）</a></li></ul></details><details><summary>維護紀錄</summary><ul><li><a href="#log" data-a="log">log：操作流水帳（只增不改）</a></li><li><a href="#schema" data-a="schema">SCHEMA：推薦演算法 LLM Wiki 的規則檔</a></li></ul></details><details><summary>原始資料 raw/</summary><ul><li><a href="#raw-s1-google-ml-recommendation-course" data-a="raw-s1-google-ml-recommendation-course">擷取筆記（改寫，不是原文）</a></li><li><a href="#raw-s2-amazon-item-to-item-2003" data-a="raw-s2-amazon-item-to-item-2003">擷取筆記（改寫，不是原文）</a></li><li><a href="#raw-s3-netflix-help-recommendations" data-a="raw-s3-netflix-help-recommendations">擷取筆記（改寫，不是原文）</a></li><li><a href="#raw-s4-tiktok-foryou-2020" data-a="raw-s4-tiktok-foryou-2020">擷取筆記（改寫，不是原文）</a></li><li><a href="#raw-s5-northeastern-phone-listening-2018" data-a="raw-s5-northeastern-phone-listening-2018">擷取筆記（改寫，不是原文）</a></li><li><a href="#raw-s6-ftc-online-tracking" data-a="raw-s6-ftc-online-tracking">擷取筆記（改寫，不是原文）</a></li><li><a href="#raw-s7-apple-app-tracking-transparency" data-a="raw-s7-apple-app-tracking-transparency">擷取筆記（改寫，不是原文）</a></li><li><a href="#raw-s8-google-advertising-id" data-a="raw-s8-google-advertising-id">擷取筆記（改寫，不是原文）</a></li></ul></details><details><summary>檢查紀錄 checks/</summary><ul><li><a href="#checks-lint-run-1" data-a="checks-lint-run-1">Lint 報告：lint-run-1</a></li><li><a href="#checks-lint-run-2" data-a="checks-lint-run-2">Lint 報告：lint-run-2</a></li><li><a href="#checks-lint-run-3" data-a="checks-lint-run-3">Lint 報告：lint-run-3</a></li><li><a href="#checks-lint-run-4" data-a="checks-lint-run-4">Lint 報告：lint-run-4</a></li><li><a href="#checks-lint-run-5" data-a="checks-lint-run-5">Lint 報告：lint-run-5</a></li><li><a href="#checks-lint-run-6" data-a="checks-lint-run-6">Lint 報告：lint-run-6</a></li><li><a href="#checks-plan-check-run-1" data-a="checks-plan-check-run-1">簡報規劃檢查：plan-check-run-1</a></li><li><a href="#checks-plan-check-run-2" data-a="checks-plan-check-run-2">簡報規劃檢查：plan-check-run-2</a></li><li><a href="#checks-plan-check-run-3" data-a="checks-plan-check-run-3">簡報規劃檢查：plan-check-run-3</a></li><li><a href="#checks-plan-check-run-4" data-a="checks-plan-check-run-4">簡報規劃檢查：plan-check-run-4</a></li><li><a href="#checks-plan-check-run-5" data-a="checks-plan-check-run-5">簡報規劃檢查：plan-check-run-5</a></li><li><a href="#checks-plan-check-run-6" data-a="checks-plan-check-run-6">簡報規劃檢查：plan-check-run-6</a></li><li><a href="#checks-render-check-run-1" data-a="checks-render-check-run-1">版面檢查：render-check-run-1</a></li><li><a href="#checks-render-check-run-2" data-a="checks-render-check-run-2">版面檢查：render-check-run-2</a></li><li><a href="#checks-render-check-run-3" data-a="checks-render-check-run-3">版面檢查：render-check-run-3</a></li><li><a href="#checks-render-check-run-4" data-a="checks-render-check-run-4">版面檢查：render-check-run-4</a></li></ul></details></nav>
+<main><article id="p-index" data-a="index" hidden><h1>index：Wiki 目錄</h1>
+<blockquote>
+<p>LLM 回答問題時<strong>先讀這一頁</strong>，再打開相關頁面。</p>
+</blockquote>
+<h2>總覽</h2>
+<ul>
+<li><a href="#overview">總覽</a>：一段話回答「手機為什麼知道你想買什麼」</li>
+<li><a href="#glossary">術語表</a>：所有專有名詞的白話解釋</li>
+</ul>
+<h2>概念</h2>
+<ul>
+<li><a href="#concepts-recommender-system">推薦系統是什麼</a>：像很懂你的店員</li>
+<li><a href="#concepts-signals-and-footprints">訊號與足跡</a>：明確／隱含回饋、強弱訊號</li>
+<li><a href="#concepts-content-based-filtering">內容過濾</a>：跟你喜歡的很像</li>
+<li><a href="#concepts-collaborative-filtering">協同過濾</a>：跟你很像的人也喜歡；Amazon item-to-item</li>
+<li><a href="#concepts-three-stage-pipeline">三階段流程</a>：海選 → 評審 → 製作人調整</li>
+<li><a href="#concepts-cold-start">冷啟動</a>：剛認識你時怎麼推</li>
+<li><a href="#concepts-filter-bubble">同溫層</a>：視野變窄的副作用</li>
+<li><a href="#concepts-online-tracking">線上追蹤</a>：Cookie、第三方、指紋、廣告 ID</li>
+<li><a href="#concepts-phone-listening-myth">手機偷聽迷思</a>：研究沒找到偷錄音</li>
+<li><a href="#concepts-privacy-self-defense">隱私自保</a>：iPhone／Android／瀏覽器設定</li>
+</ul>
+<h2>實體</h2>
+<ul>
+<li><a href="#entities-amazon">Amazon</a></li>
+<li><a href="#entities-netflix">Netflix</a></li>
+<li><a href="#entities-tiktok">TikTok</a></li>
+</ul>
+<h2>來源（S1–S8）</h2>
+<ul>
+<li><a href="#sources-s1-google-recsys">S1 Google ML 課程</a></li>
+<li><a href="#sources-s2-amazon-item-to-item">S2 Amazon 2003 論文</a></li>
+<li><a href="#sources-s3-netflix">S3 Netflix 說明中心</a></li>
+<li><a href="#sources-s4-tiktok">S4 TikTok 2020</a></li>
+<li><a href="#sources-s5-northeastern-listening">S5 東北大學 2018</a></li>
+<li><a href="#sources-s6-ftc-tracking">S6 FTC 線上追蹤</a></li>
+<li><a href="#sources-s7-apple-att">S7 Apple App 追蹤透明度</a></li>
+<li><a href="#sources-s8-android-ad-id">S8 Google 廣告 ID</a></li>
+</ul>
+<h2>成果（查詢存回）</h2>
+<ul>
+<li><a href="#outputs-slide-outline">教學簡報大綱</a>：17 張投影片各自根據哪些 Wiki 頁面與來源</li>
+</ul><footer class="src">檔案：<code>wiki/index.md</code></footer></article><article id="p-graph" data-a="graph" hidden><h1>知識圖譜</h1><p>每個圓點是一頁 Wiki，線代表兩頁互相連結；點越大，連結越多。點一下就能打開那一頁。</p><div class="legend"><span><i style="background:#1F2A44"></i>開始</span><span><i style="background:#E4572E"></i>概念</span><span><i style="background:#F2C14E"></i>實體</span><span><i style="background:#2A9D8F"></i>來源摘要 S1–S8</span><span><i style="background:#7B5EA7"></i>查詢成果</span></div><svg viewBox="0 0 900 520" class="graph" role="img" aria-label="Wiki 頁面連結圖"><line x1="369" y1="323" x2="50" y2="361"/><line x1="369" y1="323" x2="495" y2="215"/><line x1="369" y1="323" x2="599" y2="258"/><line x1="369" y1="323" x2="244" y2="314"/><line x1="369" y1="323" x2="436" y2="306"/><line x1="369" y1="323" x2="449" y2="490"/><line x1="369" y1="323" x2="617" y2="404"/><line x1="369" y1="323" x2="381" y2="432"/><line x1="369" y1="323" x2="513" y2="427"/><line x1="369" y1="323" x2="719" y2="312"/><line x1="369" y1="323" x2="330" y2="155"/><line x1="369" y1="323" x2="423" y2="121"/><line x1="369" y1="323" x2="130" y2="210"/><line x1="369" y1="323" x2="574" y2="306"/><line x1="369" y1="323" x2="289" y2="407"/><line x1="369" y1="323" x2="310" y2="224"/><line x1="369" y1="323" x2="413" y2="272"/><line x1="50" y1="361" x2="212" y2="182"/><line x1="50" y1="361" x2="413" y2="272"/><line x1="495" y1="215" x2="478" y2="354"/><line x1="495" y1="215" x2="436" y2="306"/><line x1="495" y1="215" x2="513" y2="427"/><line x1="495" y1="215" x2="599" y2="258"/><line x1="495" y1="215" x2="244" y2="314"/><line x1="495" y1="215" x2="719" y2="312"/><line x1="495" y1="215" x2="330" y2="155"/><line x1="495" y1="215" x2="423" y2="121"/><line x1="495" y1="215" x2="310" y2="224"/><line x1="495" y1="215" x2="212" y2="182"/><line x1="495" y1="215" x2="731" y2="152"/><line x1="495" y1="215" x2="413" y2="272"/><line x1="599" y1="258" x2="478" y2="354"/><line x1="599" y1="258" x2="436" y2="306"/><line x1="599" y1="258" x2="617" y2="404"/><line x1="599" y1="258" x2="381" y2="432"/><line x1="599" y1="258" x2="574" y2="306"/><line x1="599" y1="258" x2="310" y2="224"/><line x1="599" y1="258" x2="731" y2="152"/><line x1="599" y1="258" x2="413" y2="272"/><line x1="244" y1="314" x2="436" y2="306"/><line x1="244" y1="314" x2="381" y2="432"/><line x1="244" y1="314" x2="574" y2="306"/><line x1="244" y1="314" x2="289" y2="407"/><line x1="244" y1="314" x2="212" y2="182"/><line x1="244" y1="314" x2="310" y2="224"/><line x1="244" y1="314" x2="40" y2="297"/><line x1="244" y1="314" x2="413" y2="272"/><line x1="436" y1="306" x2="478" y2="354"/><line x1="436" y1="306" x2="513" y2="427"/><line x1="436" y1="306" x2="719" y2="312"/><line x1="436" y1="306" x2="449" y2="490"/><line x1="436" y1="306" x2="617" y2="404"/><line x1="436" y1="306" x2="381" y2="432"/><line x1="436" y1="306" x2="330" y2="155"/><line x1="436" y1="306" x2="423" y2="121"/><line x1="436" y1="306" x2="130" y2="210"/><line x1="436" y1="306" x2="574" y2="306"/><line x1="436" y1="306" x2="289" y2="407"/><line x1="436" y1="306" x2="212" y2="182"/><line x1="436" y1="306" x2="413" y2="272"/><line x1="449" y1="490" x2="478" y2="354"/><line x1="449" y1="490" x2="513" y2="427"/><line x1="449" y1="490" x2="289" y2="407"/><line x1="449" y1="490" x2="617" y2="404"/><line x1="449" y1="490" x2="413" y2="272"/><line x1="617" y1="404" x2="478" y2="354"/><line x1="617" y1="404" x2="513" y2="427"/><line x1="617" y1="404" x2="719" y2="312"/><line x1="617" y1="404" x2="574" y2="306"/><line x1="617" y1="404" x2="289" y2="407"/><line x1="617" y1="404" x2="860" y2="389"/><line x1="617" y1="404" x2="413" y2="272"/><line x1="381" y1="432" x2="478" y2="354"/><line x1="381" y1="432" x2="513" y2="427"/><line x1="381" y1="432" x2="289" y2="407"/><line x1="381" y1="432" x2="413" y2="272"/><line x1="513" y1="427" x2="574" y2="306"/><line x1="513" y1="427" x2="289" y2="407"/><line x1="513" y1="427" x2="413" y2="272"/><line x1="719" y1="312" x2="860" y2="389"/><line x1="719" y1="312" x2="413" y2="272"/><line x1="330" y1="155" x2="478" y2="354"/><line x1="330" y1="155" x2="212" y2="182"/><line x1="330" y1="155" x2="423" y2="121"/><line x1="330" y1="155" x2="257" y2="30"/><line x1="330" y1="155" x2="130" y2="210"/><line x1="330" y1="155" x2="310" y2="224"/><line x1="330" y1="155" x2="413" y2="272"/><line x1="423" y1="121" x2="212" y2="182"/><line x1="423" y1="121" x2="310" y2="224"/><line x1="423" y1="121" x2="413" y2="272"/><line x1="130" y1="210" x2="310" y2="224"/><line x1="130" y1="210" x2="413" y2="272"/><line x1="574" y1="306" x2="478" y2="354"/><line x1="574" y1="306" x2="310" y2="224"/><line x1="574" y1="306" x2="731" y2="152"/><line x1="574" y1="306" x2="413" y2="272"/><line x1="289" y1="407" x2="478" y2="354"/><line x1="289" y1="407" x2="310" y2="224"/><line x1="289" y1="407" x2="40" y2="297"/><line x1="289" y1="407" x2="413" y2="272"/><line x1="310" y1="224" x2="478" y2="354"/><line x1="310" y1="224" x2="212" y2="182"/><line x1="310" y1="224" x2="257" y2="30"/><line x1="310" y1="224" x2="40" y2="297"/><line x1="310" y1="224" x2="413" y2="272"/><line x1="413" y1="272" x2="478" y2="354"/><line x1="413" y1="272" x2="212" y2="182"/><line x1="413" y1="272" x2="860" y2="389"/><line x1="413" y1="272" x2="731" y2="152"/><line x1="413" y1="272" x2="40" y2="297"/><line x1="413" y1="272" x2="257" y2="30"/><a href="#overview"><circle cx="369" cy="323" r="22" fill="#1F2A44"/><text x="369" y="360" text-anchor="middle">總覽</text></a><a href="#sources-s5-northeastern-listening"><circle cx="50" cy="361" r="11" fill="#2A9D8F"/><text x="50" y="387" text-anchor="middle">S5</text></a><a href="#concepts-signals-and-footprints"><circle cx="495" cy="215" r="21" fill="#E4572E"/><text x="495" y="251" text-anchor="middle">訊號與足跡</text></a><a href="#sources-s3-netflix"><circle cx="599" cy="258" r="18" fill="#2A9D8F"/><text x="599" y="291" text-anchor="middle">S3</text></a><a href="#sources-s4-tiktok"><circle cx="244" cy="314" r="18" fill="#2A9D8F"/><text x="244" y="347" text-anchor="middle">S4</text></a><a href="#concepts-recommender-system"><circle cx="436" cy="306" r="22" fill="#E4572E"/><text x="436" y="343" text-anchor="middle">推薦系統</text></a><a href="#concepts-content-based-filtering"><circle cx="449" cy="490" r="15" fill="#E4572E"/><text x="449" y="520" text-anchor="middle">內容過濾</text></a><a href="#concepts-collaborative-filtering"><circle cx="617" cy="404" r="19" fill="#E4572E"/><text x="617" y="438" text-anchor="middle">協同過濾</text></a><a href="#concepts-three-stage-pipeline"><circle cx="381" cy="432" r="16" fill="#E4572E"/><text x="381" y="463" text-anchor="middle">三階段流程</text></a><a href="#sources-s1-google-recsys"><circle cx="513" cy="427" r="17" fill="#2A9D8F"/><text x="513" y="459" text-anchor="middle">S1</text></a><a href="#sources-s2-amazon-item-to-item"><circle cx="719" cy="312" r="14" fill="#2A9D8F"/><text x="719" y="341" text-anchor="middle">S2</text></a><a href="#concepts-online-tracking"><circle cx="330" cy="155" r="18" fill="#E4572E"/><text x="330" y="188" text-anchor="middle">線上追蹤</text></a><a href="#sources-s6-ftc-tracking"><circle cx="423" cy="121" r="15" fill="#2A9D8F"/><text x="423" y="151" text-anchor="middle">S6</text></a><a href="#sources-s7-apple-att"><circle cx="130" cy="210" r="13" fill="#2A9D8F"/><text x="130" y="238" text-anchor="middle">S7</text></a><a href="#concepts-cold-start"><circle cx="574" cy="306" r="18" fill="#E4572E"/><text x="574" y="339" text-anchor="middle">冷啟動</text></a><a href="#concepts-filter-bubble"><circle cx="289" cy="407" r="19" fill="#E4572E"/><text x="289" y="441" text-anchor="middle">同溫層</text></a><a href="#concepts-privacy-self-defense"><circle cx="310" cy="224" r="22" fill="#E4572E"/><text x="310" y="261" text-anchor="middle">隱私自保</text></a><a href="#outputs-slide-outline"><circle cx="413" cy="272" r="22" fill="#7B5EA7"/><text x="413" y="309" text-anchor="middle">成果</text></a><a href="#glossary"><circle cx="478" cy="354" r="19" fill="#1F2A44"/><text x="478" y="388" text-anchor="middle">術語表</text></a><a href="#concepts-phone-listening-myth"><circle cx="212" cy="182" r="16" fill="#E4572E"/><text x="212" y="213" text-anchor="middle">手機偷聽迷思</text></a><a href="#sources-s8-android-ad-id"><circle cx="257" cy="30" r="11" fill="#2A9D8F"/><text x="257" y="56" text-anchor="middle">S8</text></a><a href="#entities-amazon"><circle cx="860" cy="389" r="11" fill="#F2C14E"/><text x="860" y="415" text-anchor="middle">Amazon</text></a><a href="#entities-netflix"><circle cx="731" cy="152" r="12" fill="#F2C14E"/><text x="731" y="179" text-anchor="middle">Netflix</text></a><a href="#entities-tiktok"><circle cx="40" cy="297" r="12" fill="#F2C14E"/><text x="40" y="324" text-anchor="middle">TikTok</text></a></svg><p class="muted">共 24 頁、112 條連結（不含 index 與 log）。</p><footer class="src">檔案：<code>（由 networkx 自動產生）</code></footer></article><article id="p-overview" data-a="overview" hidden><h1>總覽：你的手機為什麼知道你想買什麼？</h1>
+<h2>一段話回答</h2>
+<p>手機「知道」你想買什麼，主要不是因為偷聽（研究沒有找到偷錄音的證據 <a href="#sources-s5-northeastern-listening">S5</a>），而是因為：
+1. 你在 App 裡留下大量 <a href="#concepts-signals-and-footprints">訊號與足跡</a>（看了什麼、看多久、買了什麼）<a href="#sources-s3-netflix">S3</a> <a href="#sources-s4-tiktok">S4</a>；
+2. <a href="#concepts-recommender-system">推薦系統</a> 用 <a href="#concepts-content-based-filtering">內容過濾</a> 和 <a href="#concepts-collaborative-filtering">協同過濾</a> 猜你的喜好，並透過 <a href="#concepts-three-stage-pipeline">三階段流程</a> 挑出最後幾個 <a href="#sources-s1-google-recsys">S1</a> <a href="#sources-s2-amazon-item-to-item">S2</a>；
+3. 跨網站、跨 App 的 <a href="#concepts-online-tracking">線上追蹤</a> 把不同地方的足跡連起來 <a href="#sources-s6-ftc-tracking">S6</a> <a href="#sources-s7-apple-att">S7</a>。</p>
+<h2>副作用</h2>
+<p><a href="#concepts-cold-start">冷啟動</a>、<a href="#concepts-filter-bubble">同溫層</a>、隱私風險（例如 App 把螢幕截圖傳給第三方 <a href="#sources-s5-northeastern-listening">S5</a>）。</p>
+<h2>你能做什麼</h2>
+<p>見 <a href="#concepts-privacy-self-defense">隱私自保</a>。</p>
+<h2>用這個 Wiki 做出的成果</h2>
+<ul>
+<li><a href="#outputs-slide-outline">教學簡報大綱</a></li>
+</ul>
+<h2>學習順序建議</h2>
+<p>推薦系統 → 訊號與足跡 → 內容過濾 → 協同過濾 → 三階段流程 → 冷啟動 → 同溫層 → 手機偷聽迷思 → 線上追蹤 → 隱私自保</p><footer class="src">檔案：<code>wiki/overview.md</code></footer></article><article id="p-glossary" data-a="glossary" hidden><h1>術語表（白話版）</h1>
+<table>
+<thead>
+<tr>
+<th>術語</th>
+<th>白話解釋</th>
+<th>詳見</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>演算法</td>
+<td>電腦解決問題時照著走的一套規則 <a href="#sources-s3-netflix">S3</a></td>
+<td>—</td>
+</tr>
+<tr>
+<td>推薦系統</td>
+<td>從多到看不完的東西裡，幫你挑一小串「可能喜歡」的清單</td>
+<td><a href="#concepts-recommender-system">推薦系統</a></td>
+</tr>
+<tr>
+<td>訊號／回饋</td>
+<td>你在 App 留下的動作，例如按讚、看完、購買</td>
+<td><a href="#concepts-signals-and-footprints">訊號與足跡</a></td>
+</tr>
+<tr>
+<td>明確回饋</td>
+<td>你直接表態，例如打星星</td>
+<td><a href="#concepts-signals-and-footprints">訊號與足跡</a></td>
+</tr>
+<tr>
+<td>隱含回饋</td>
+<td>系統從你的行為推測，例如看完一部片</td>
+<td><a href="#concepts-signals-and-footprints">訊號與足跡</a></td>
+</tr>
+<tr>
+<td>內容過濾</td>
+<td>推薦「跟你喜歡的東西很像」的東西</td>
+<td><a href="#concepts-content-based-filtering">內容過濾</a></td>
+</tr>
+<tr>
+<td>協同過濾</td>
+<td>推薦「跟你很像的人也喜歡」的東西</td>
+<td><a href="#concepts-collaborative-filtering">協同過濾</a></td>
+</tr>
+<tr>
+<td>embedding（嵌入向量）</td>
+<td>每個人、每樣東西在「口味地圖」上的座標</td>
+<td><a href="#concepts-collaborative-filtering">協同過濾</a></td>
+</tr>
+<tr>
+<td>候選生成</td>
+<td>第一階段的「海選」</td>
+<td><a href="#concepts-three-stage-pipeline">三階段流程</a></td>
+</tr>
+<tr>
+<td>冷啟動</td>
+<td>系統還不認識新使用者或新東西時的困難</td>
+<td><a href="#concepts-cold-start">冷啟動</a></td>
+</tr>
+<tr>
+<td>同溫層（過濾泡泡）</td>
+<td>只看到跟自己喜好相同的內容，視野變窄</td>
+<td><a href="#concepts-filter-bubble">同溫層</a></td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>網站存在你瀏覽器裡的小紀錄，讓它認得你</td>
+<td><a href="#concepts-online-tracking">線上追蹤</a></td>
+</tr>
+<tr>
+<td>第三方追蹤</td>
+<td>你逛的網站讓別家公司也記錄你</td>
+<td><a href="#concepts-online-tracking">線上追蹤</a></td>
+</tr>
+<tr>
+<td>裝置指紋</td>
+<td>用瀏覽器的獨特設定組合認出你</td>
+<td><a href="#concepts-online-tracking">線上追蹤</a></td>
+</tr>
+<tr>
+<td>廣告 ID</td>
+<td>手機上專門給廣告用的編號，可重設或刪除</td>
+<td><a href="#concepts-privacy-self-defense">隱私自保</a></td>
+</tr>
+<tr>
+<td>IDFA</td>
+<td>iPhone 的廣告識別碼</td>
+<td><a href="#concepts-privacy-self-defense">隱私自保</a></td>
+</tr>
+<tr>
+<td>資料仲介商</td>
+<td>專門收集、買賣個人資料的公司</td>
+<td><a href="#concepts-online-tracking">線上追蹤</a></td>
+</tr>
+</tbody>
+</table><footer class="src">檔案：<code>wiki/glossary.md</code></footer></article><article id="p-concepts-recommender-system" data-a="concepts-recommender-system" hidden><h1>推薦系統（Recommender System）是什麼？</h1>
+<h2>白話定義</h2>
+<p>推薦系統就像一位<strong>很懂你的店員</strong>：店裡東西多到你看不完，他根據你以前的樣子，先幫你挑出一小串「你大概會喜歡」的東西。技術上說，它把非常大量的候選項目縮小成一小串值得給你看的清單 <a href="#sources-s1-google-recsys">S1</a>。</p>
+<h2>它在哪裡？</h2>
+<ul>
+<li>購物網站：同一間網路商店，對不同顧客會長得不一樣，軟體工程師看到程式書、新手媽媽看到嬰兒玩具 <a href="#sources-s2-amazon-item-to-item">S2</a>。</li>
+<li>影音平台：Netflix 首頁的哪一列出現、列裡放哪些片、順序怎麼排，都是個人化的結果 <a href="#sources-s3-netflix">S3</a>。</li>
+<li>短影音：TikTok 的「為你推薦」每個人都不一樣 <a href="#sources-s4-tiktok">S4</a>。</li>
+</ul>
+<h2>它怎麼猜？</h2>
+<ol>
+<li>收集你的 <a href="#concepts-signals-and-footprints">訊號與足跡</a>。</li>
+<li>用兩種主要猜法：<a href="#concepts-content-based-filtering">內容過濾</a>（跟你喜歡的東西很像）與 <a href="#concepts-collaborative-filtering">協同過濾</a>（跟你很像的人也喜歡）。</li>
+<li>透過 <a href="#concepts-three-stage-pipeline">三階段流程</a> 從大量候選挑出最後幾個。</li>
+</ol>
+<h2>推薦 vs 廣告</h2>
+<p>推薦系統多半用你<strong>在這個平台上</strong>的行為；而跨網站、跨 App 的廣告，常靠 <a href="#concepts-online-tracking">線上追蹤</a> 把不同地方的資料連起來 <a href="#sources-s6-ftc-tracking">S6</a> <a href="#sources-s7-apple-att">S7</a>。（推論：這就是為什麼你在 A 網站看過的東西，會在 B App 的廣告出現。）</p>
+<h2>相關</h2>
+<p><a href="#concepts-cold-start">冷啟動</a>、<a href="#concepts-filter-bubble">同溫層</a>、<a href="#concepts-phone-listening-myth">手機偷聽迷思</a></p>
+<p>← 回到 <a href="#overview">總覽</a>｜看不懂的詞查 <a href="#glossary">術語表</a></p><footer class="src">檔案：<code>wiki/concepts/recommender-system.md</code></footer></article><article id="p-concepts-signals-and-footprints" data-a="concepts-signals-and-footprints" hidden><h1>訊號與足跡：系統從哪裡知道你喜歡什麼？</h1>
+<h2>白話定義</h2>
+<p>你在 App 裡的每個動作都像在沙灘上留下<strong>腳印</strong>。推薦系統把這些腳印叫做「訊號」或「回饋」。</p>
+<h2>兩種回饋</h2>
+<ul>
+<li><strong>明確回饋</strong>：你直接告訴它，例如打星星、按讚 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li><strong>隱含回饋</strong>：你沒說，但系統從行為推測，例如你把一部電影看完 <a href="#sources-s1-google-recsys">S1</a>。</li>
+</ul>
+<h2>各平台公開說會用的訊號</h2>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>會用的訊號</th>
+<th>來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Netflix</td>
+<td>觀看紀錄、評分、口味相近的會員、片子類型與演員、時段、語言、裝置、看了多久</td>
+<td><a href="#sources-s3-netflix">S3</a></td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td>按讚、分享、追蹤、留言、自己發的影片；影片的字幕、音樂、hashtag；語言、國家、裝置</td>
+<td><a href="#sources-s4-tiktok">S4</a></td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td>你買過、評分過的商品；購物車裡的商品</td>
+<td><a href="#sources-s2-amazon-item-to-item">S2</a></td>
+</tr>
+</tbody>
+</table>
+<h2>強訊號 vs 弱訊號</h2>
+<p>不是每個腳印都一樣重。TikTok 說把一支較長影片看完是<strong>強訊號</strong>，跟創作者同一個國家只是<strong>弱訊號</strong> <a href="#sources-s4-tiktok">S4</a>。Netflix 也說<strong>近期</strong>的行為比舊的行為重要 <a href="#sources-s3-netflix">S3</a>。</p>
+<h2>平台說「不用」的</h2>
+<p>Netflix 表示年齡、性別這類人口資料不參與推薦決策 <a href="#sources-s3-netflix">S3</a>。</p>
+<h2>跨出平台的足跡</h2>
+<p>平台外的足跡（你逛過的其他網站、用過的其他 App）要靠 <a href="#concepts-online-tracking">線上追蹤</a> 才連得起來 <a href="#sources-s6-ftc-tracking">S6</a>。</p>
+<h2>相關</h2>
+<p><a href="#concepts-recommender-system">推薦系統</a>、<a href="#concepts-privacy-self-defense">隱私自保</a></p><footer class="src">檔案：<code>wiki/concepts/signals-and-footprints.md</code></footer></article><article id="p-concepts-content-based-filtering" data-a="concepts-content-based-filtering" hidden><h1>內容過濾（Content-based Filtering）</h1>
+<h2>白話比喻</h2>
+<p>「你喜歡這本<strong>推理小說</strong>，那這本也是推理小說，你應該也會喜歡。」——只看<strong>東西本身長什麼樣</strong>。</p>
+<h2>怎麼運作</h2>
+<ul>
+<li>給每個東西貼上特徵標籤（例如 App 的「教育」「休閒」「健康」、發行商），也把你的喜好放在同一組標籤上 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li>算你和每個東西有幾個標籤相同，相同越多分數越高。Google 課程的例題裡，教育類 App 得 2 分最高、健康類 1 分、休閒遊戲 0 分 <a href="#sources-s1-google-recsys">S1</a>。</li>
+</ul>
+<h2>優點</h2>
+<ul>
+<li>不需要別人的資料，只看你自己 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li>能抓到很小眾的興趣 <a href="#sources-s1-google-recsys">S1</a>。</li>
+</ul>
+<h2>缺點</h2>
+<ul>
+<li>標籤多半要人工設計，標籤不好推薦就不好 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li>幾乎只推「跟你已經喜歡的很像」的東西，很難拓展興趣 <a href="#sources-s1-google-recsys">S1</a> → 與 <a href="#concepts-filter-bubble">同溫層</a> 有關。</li>
+</ul>
+<h2>對照</h2>
+<p>另一種猜法是 <a href="#concepts-collaborative-filtering">協同過濾</a>。</p><footer class="src">檔案：<code>wiki/concepts/content-based-filtering.md</code></footer></article><article id="p-concepts-collaborative-filtering" data-a="concepts-collaborative-filtering" hidden><h1>協同過濾（Collaborative Filtering）</h1>
+<h2>白話比喻</h2>
+<p>「和你口味很像的同學都愛這家店，那你應該也會喜歡。」——看的是<strong>人和人、東西和東西之間的關係</strong>，不用知道東西本身是什麼。</p>
+<h2>怎麼運作</h2>
+<ul>
+<li>把「誰對什麼有興趣」排成一張大表格：每一列是一個人，每一欄是一個東西 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li>系統自動學出每個人、每個東西在「口味地圖」上的位置；口味相近的人會靠在一起，被同一群人喜歡的東西也會靠在一起 <a href="#sources-s1-google-recsys">S1</a>。這個位置叫做 embedding（嵌入向量）。</li>
+</ul>
+<h2>Amazon 的版本：「買了這個的人也買了⋯」</h2>
+<ul>
+<li>Amazon 不去找和你相似的顧客，而是找<strong>和你買過的商品相似的商品</strong>，叫做 item-to-item 協同過濾 <a href="#sources-s2-amazon-item-to-item">S2</a>。</li>
+<li>「相似商品表」事先離線算好，所以你一上網就能即時給推薦 <a href="#sources-s2-amazon-item-to-item">S2</a>。</li>
+<li>原因：傳統「找相似顧客」的做法，在約 1,000 萬名顧客、100 萬件商品的規模就不實際了 <a href="#sources-s2-amazon-item-to-item">S2</a>。</li>
+</ul>
+<h2>優點</h2>
+<ul>
+<li>會有<strong>驚喜</strong>：可以推薦你從沒接觸過、但相似的人喜歡的東西 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li>不需要人工設計標籤 <a href="#sources-s1-google-recsys">S1</a>。</li>
+</ul>
+<h2>缺點</h2>
+<ul>
+<li><a href="#concepts-cold-start">冷啟動</a>：全新的東西還沒有人互動過，系統不知道把它放在地圖哪裡 <a href="#sources-s1-google-recsys">S1</a>。</li>
+</ul>
+<h2>對照</h2>
+<p><a href="#concepts-content-based-filtering">內容過濾</a>；實際平台通常混著用，例如 Netflix 同時看「相似會員」和「片子資訊」 <a href="#sources-s3-netflix">S3</a>。</p><footer class="src">檔案：<code>wiki/concepts/collaborative-filtering.md</code></footer></article><article id="p-concepts-three-stage-pipeline" data-a="concepts-three-stage-pipeline" hidden><h1>三階段流程：從幾十億個挑出 10 個</h1>
+<h2>白話比喻：選秀節目</h2>
+<ol>
+<li><strong>海選</strong>（候選生成）：從幾十億報名者裡，很快挑出幾百到幾千人。YouTube 的候選生成就是把數十億支影片縮小到數百到數千支 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li><strong>評審打分</strong>（打分數）：人少了，評審可以仔細看，用更精細的模型排序，選出大約 10 個給你看 <a href="#sources-s1-google-recsys">S1</a>。</li>
+<li><strong>節目製作人最後調整</strong>（重新排序）：拿掉你說過不喜歡的、讓新內容多一點機會、照顧多樣性與公平性 <a href="#sources-s1-google-recsys">S1</a>。</li>
+</ol>
+<h2>實際例子</h2>
+<ul>
+<li>TikTok 的「最後調整」：不連續推同一個創作者或同一段音樂、排除看過與重複的內容 <a href="#sources-s4-tiktok">S4</a>。</li>
+<li>Netflix 把最推薦的放在每一列的最左邊、首頁最上面 <a href="#sources-s3-netflix">S3</a>。</li>
+</ul>
+<h2>相關</h2>
+<p><a href="#concepts-recommender-system">推薦系統</a>、<a href="#concepts-filter-bubble">同溫層</a></p><footer class="src">檔案：<code>wiki/concepts/three-stage-pipeline.md</code></footer></article><article id="p-concepts-cold-start" data-a="concepts-cold-start" hidden><h1>冷啟動（Cold Start）：剛認識你的時候怎麼辦？</h1>
+<h2>白話比喻</h2>
+<p>新來的店員還不認識你，只能先推「店裡最熱賣的」，或直接問你「你平常喜歡什麼？」。</p>
+<h2>問題</h2>
+<p><a href="#concepts-collaborative-filtering">協同過濾</a> 需要互動資料，全新的東西或全新的使用者還沒有資料，系統就不知道怎麼推薦 <a href="#sources-s1-google-recsys">S1</a>。</p>
+<h2>平台的做法</h2>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>新使用者一開始</th>
+<th>之後</th>
+<th>來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Netflix</td>
+<td>可以先挑幾部喜歡的片；跳過就看多樣的熱門片</td>
+<td>實際觀看會蓋過初始選擇，近期行為比較重要</td>
+<td><a href="#sources-s3-netflix">S3</a></td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td>可以先選興趣類別（例如寵物、旅遊）；沒選就看熱門影片</td>
+<td>按讚、留言、重播會逐步調整</td>
+<td><a href="#sources-s4-tiktok">S4</a></td>
+</tr>
+</tbody>
+</table>
+<h2>給使用者的啟示</h2>
+<p>（推論）剛開始用一個 App 的前幾天，你的每個動作對推薦影響特別大；想要乾淨的推薦，一開始就善用「不感興趣」（見 <a href="#concepts-privacy-self-defense">隱私自保</a>）。</p><footer class="src">檔案：<code>wiki/concepts/cold-start.md</code></footer></article><article id="p-concepts-filter-bubble" data-a="concepts-filter-bubble" hidden><h1>同溫層（Filter Bubble）</h1>
+<h2>白話定義</h2>
+<p>推薦系統一直給你「跟你已經喜歡的很像」的東西，久了你看到的世界越來越窄，就像被包在一個泡泡裡。</p>
+<h2>為什麼會發生</h2>
+<p><a href="#concepts-content-based-filtering">內容過濾</a> 本身就有這個傾向：它幾乎只推和既有興趣相符的東西，很難拓展你的興趣 <a href="#sources-s1-google-recsys">S1</a>。</p>
+<h2>平台怎麼說自己在對抗它</h2>
+<p>TikTok 表示它會：
+- 避免連續出現同一個創作者或同一段音樂 <a href="#sources-s4-tiktok">S4</a>；
+- 有時刻意推薦你興趣以外、或不算熱門的影片，幫你發現新創作者和新觀點 <a href="#sources-s4-tiktok">S4</a>。</p>
+<p><a href="#concepts-collaborative-filtering">協同過濾</a> 的「驚喜推薦」也能帶來一點新東西 <a href="#sources-s1-google-recsys">S1</a>。</p>
+<h2><span class="warn">⚠</span> 注意</h2>
+<p>以上是平台<strong>自己的說法</strong>；本 Wiki 目前沒有獨立研究來驗證這些做法的效果（資料缺口）。</p>
+<h2>你可以做的</h2>
+<p>主動搜尋、追蹤不同觀點的帳號、用「不感興趣」整理推薦（推論；平台工具見 <a href="#concepts-privacy-self-defense">隱私自保</a>）。</p><footer class="src">檔案：<code>wiki/concepts/filter-bubble.md</code></footer></article><article id="p-concepts-phone-listening-myth" data-a="concepts-phone-listening-myth" hidden><h1>手機偷聽迷思：「我才剛說想買，廣告就出現了！」</h1>
+<h2>大家的懷疑</h2>
+<p>很多人覺得手機會偷偷錄下對話，再拿去打廣告。美國東北大學的研究者把它稱為一個流傳已久的「都市傳說」，決定實際測試 <a href="#sources-s5-northeastern-listening">S5</a>。</p>
+<h2>研究怎麼做</h2>
+<p>用自動測試程式，分析 17,000 多個最熱門的 Android App <a href="#sources-s5-northeastern-listening">S5</a>。</p>
+<h2>結果</h2>
+<ul>
+<li><strong>沒有找到偷錄音的證據</strong>：沒有聲音外洩，也沒有任何 App 打開麥克風 <a href="#sources-s5-northeastern-listening">S5</a>。</li>
+<li><strong>但有別的問題</strong>：其中約 9,000 個 App 具有截圖能力，而且確實有 App 把你的螢幕截圖或錄影傳給第三方，例如外送 App GoPuff 把畫面影片傳給分析公司 Appsee <a href="#sources-s5-northeastern-listening">S5</a>。</li>
+</ul>
+<h2>那廣告為什麼這麼準？（推論）</h2>
+<p>不需要偷聽，你留下的 <a href="#concepts-signals-and-footprints">訊號與足跡</a>、加上跨網站與 App 的 <a href="#concepts-online-tracking">線上追蹤</a>，就足以讓系統猜得很準 <a href="#sources-s4-tiktok">S4</a> <a href="#sources-s6-ftc-tracking">S6</a>。</p>
+<h2><span class="warn">⚠</span> 注意</h2>
+<ul>
+<li>研究只在 Android 上進行，研究者也認為其他系統不見得比較安全 <a href="#sources-s5-northeastern-listening">S5</a>。</li>
+<li>「沒找到證據」不等於「絕對不可能」。</li>
+</ul>
+<h2>相關</h2>
+<p><a href="#concepts-privacy-self-defense">隱私自保</a></p><footer class="src">檔案：<code>wiki/concepts/phone-listening-myth.md</code></footer></article><article id="p-concepts-online-tracking" data-a="concepts-online-tracking" hidden><h1>線上追蹤：廣告怎麼跟著你跑？</h1>
+<h2>白話比喻</h2>
+<p>你逛街時，每家店都偷偷在你背包上貼一張小貼紙；之後有一家公司專門收集這些貼紙，就知道你今天逛過哪些店。</p>
+<h2>常見的追蹤方式（依美國 FTC 整理）</h2>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>白話說明</th>
+<th>來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cookie／像素</td>
+<td>網站放在你瀏覽器裡的小紀錄，讓它在你離開後還認得你</td>
+<td><a href="#sources-s6-ftc-tracking">S6</a></td>
+</tr>
+<tr>
+<td>第一方追蹤</td>
+<td>你正在逛的網站自己記錄你</td>
+<td><a href="#sources-s6-ftc-tracking">S6</a></td>
+</tr>
+<tr>
+<td>第三方追蹤</td>
+<td>你逛的網站讓別家公司也記錄你；這些公司能跨很多網站跟著你，進而投放精準廣告</td>
+<td><a href="#sources-s6-ftc-tracking">S6</a></td>
+</tr>
+<tr>
+<td>裝置指紋</td>
+<td>用你瀏覽器獨特的設定組合認出你，就算沒有 Cookie</td>
+<td><a href="#sources-s6-ftc-tracking">S6</a></td>
+</tr>
+<tr>
+<td>手機廣告 ID</td>
+<td>手機上一組專門給廣告用的編號，可以追蹤你在 App 裡的活動</td>
+<td><a href="#sources-s6-ftc-tracking">S6</a> <a href="#sources-s8-android-ad-id">S8</a></td>
+</tr>
+<tr>
+<td>跨裝置追蹤</td>
+<td>把你筆電和手機上的活動連起來</td>
+<td><a href="#sources-s6-ftc-tracking">S6</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Apple 對「追蹤」的定義</h2>
+<p>把 App 裡能認出你的資訊，和其他公司 App、網站收集到的資訊連在一起，拿來投放廣告、衡量廣告效果，或分享給資料仲介商 <a href="#sources-s7-apple-att">S7</a>。</p>
+<h2>和推薦系統的關係</h2>
+<p>平台內的推薦主要靠 <a href="#concepts-signals-and-footprints">訊號與足跡</a>；跨平台的「怎麼我剛看過就出現廣告」，常是追蹤把不同地方的資料連起來的結果（推論，依據 <a href="#sources-s6-ftc-tracking">S6</a> <a href="#sources-s7-apple-att">S7</a>）。</p>
+<h2>相關</h2>
+<p><a href="#concepts-phone-listening-myth">手機偷聽迷思</a>、<a href="#concepts-privacy-self-defense">隱私自保</a></p><footer class="src">檔案：<code>wiki/concepts/online-tracking.md</code></footer></article><article id="p-concepts-privacy-self-defense" data-a="concepts-privacy-self-defense" hidden><h1>隱私自保：你可以怎麼做？</h1>
+<h2>一、手機上關掉跨 App 追蹤</h2>
+<h3>iPhone（App 追蹤透明度）</h3>
+<ul>
+<li>iOS 14.5 起，App 要跨其他公司的 App 與網站追蹤你前必須先問你 <a href="#sources-s7-apple-att">S7</a>。</li>
+<li>跳出詢問時選「要求 App 不要追蹤」，App 照樣可以完整使用 <a href="#sources-s7-apple-att">S7</a>。</li>
+<li>一次全關：<strong>設定 → 隱私權與安全性 → 關閉「允許 App 要求追蹤」</strong> <a href="#sources-s7-apple-att">S7</a>。</li>
+<li>拒絕之後，App 拿不到廣告識別碼（IDFA），也不能改用你的 email 等資訊追蹤你 <a href="#sources-s7-apple-att">S7</a>。</li>
+</ul>
+<h3>Android（廣告 ID）</h3>
+<ul>
+<li><strong>設定 → 隱私權 → 廣告 → 重設或刪除廣告 ID</strong> <a href="#sources-s8-android-ad-id">S8</a>。</li>
+<li>刪除後 App 只會讀到一串 0 <a href="#sources-s8-android-ad-id">S8</a>。</li>
+<li>舊版本可能在「設定 → 隱私權 → 進階 → 廣告」，開啟「停用廣告個人化」 <a href="#sources-s8-android-ad-id">S8</a>。</li>
+</ul>
+<h2>二、整理 App 權限</h2>
+<ul>
+<li>關掉不需要的位置、聯絡人、相片權限；刪掉要了不必要權限的 App <a href="#sources-s6-ftc-tracking">S6</a>。</li>
+</ul>
+<h2>三、瀏覽器</h2>
+<ul>
+<li>定期刪除 Cookie、清除瀏覽與搜尋紀錄 <a href="#sources-s6-ftc-tracking">S6</a>。</li>
+<li>Cookie 通知只允許「必要」的 Cookie <a href="#sources-s6-ftc-tracking">S6</a>。</li>
+<li><span class="warn">⚠</span> <strong>無痕模式擋不住網站看到你的活動</strong> <a href="#sources-s6-ftc-tracking">S6</a>。</li>
+<li>廣告阻擋器能擋部分追蹤器，但不是全部 <a href="#sources-s6-ftc-tracking">S6</a>。</li>
+</ul>
+<h2>四、在 App 裡「調教」推薦</h2>
+<ul>
+<li>TikTok：長按影片選「不感興趣」，或隱藏某創作者、某段音樂的影片 <a href="#sources-s4-tiktok">S4</a>。</li>
+<li>Netflix：你看什麼、有沒有看完、怎麼評分都會被用來更新推薦 <a href="#sources-s3-netflix">S3</a>，所以評分本身就是一種調整。</li>
+</ul>
+<h2>五、別忘了其他裝置</h2>
+<p>智慧電視、串流裝置、社群帳號也有自己的隱私設定 <a href="#sources-s6-ftc-tracking">S6</a>。</p>
+<h2>迷思破解</h2>
+<ul>
+<li>「關掉追蹤 App 就不能用」→ 錯，iPhone 上拒絕追蹤仍可完整使用 <a href="#sources-s7-apple-att">S7</a>。</li>
+<li>「開無痕就安全」→ 錯 <a href="#sources-s6-ftc-tracking">S6</a>。</li>
+</ul>
+<h2>相關</h2>
+<p><a href="#concepts-online-tracking">線上追蹤</a>、<a href="#concepts-phone-listening-myth">手機偷聽迷思</a>、<a href="#concepts-filter-bubble">同溫層</a></p><footer class="src">檔案：<code>wiki/concepts/privacy-self-defense.md</code></footer></article><article id="p-entities-amazon" data-a="entities-amazon" hidden><h1>Amazon</h1>
+<ul>
+<li>「買了這個的人也買了⋯」的經典做法：item-to-item <a href="#concepts-collaborative-filtering">協同過濾</a> <a href="#sources-s2-amazon-item-to-item">S2</a>。</li>
+<li>網站依顧客改變：工程師看到程式書，新手媽媽看到嬰兒玩具 <a href="#sources-s2-amazon-item-to-item">S2</a>。</li>
+<li>購物車推薦：像結帳台旁的衝動購買區，但每個人不同 <a href="#sources-s2-amazon-item-to-item">S2</a>。</li>
+</ul><footer class="src">檔案：<code>wiki/entities/amazon.md</code></footer></article><article id="p-entities-netflix" data-a="entities-netflix" hidden><h1>Netflix</h1>
+<ul>
+<li>訊號：觀看紀錄、評分、相似會員、片子資訊、時段／語言／裝置／觀看長度 <a href="#sources-s3-netflix">S3</a>（見 <a href="#concepts-signals-and-footprints">訊號與足跡</a>）。</li>
+<li>不用年齡、性別 <a href="#sources-s3-netflix">S3</a>。</li>
+<li>新會員先挑片暖機（見 <a href="#concepts-cold-start">冷啟動</a>）<a href="#sources-s3-netflix">S3</a>。</li>
+</ul><footer class="src">檔案：<code>wiki/entities/netflix.md</code></footer></article><article id="p-entities-tiktok" data-a="entities-tiktok" hidden><h1>TikTok</h1>
+<ul>
+<li>「為你推薦」每個人都不同 <a href="#sources-s4-tiktok">S4</a>。</li>
+<li>看完長影片＝強訊號；同國家＝弱訊號；追蹤數不是直接因素 <a href="#sources-s4-tiktok">S4</a>。</li>
+<li>刻意穿插不同內容以避免 <a href="#concepts-filter-bubble">同溫層</a> <a href="#sources-s4-tiktok">S4</a>。</li>
+<li>「不感興趣」等控制見 <a href="#concepts-privacy-self-defense">隱私自保</a>。</li>
+</ul><footer class="src">檔案：<code>wiki/entities/tiktok.md</code></footer></article><article id="p-sources-s1-google-recsys" data-a="sources-s1-google-recsys" hidden><h1>S1｜Google 機器學習課程：Recommendation Systems</h1>
+<ul>
+<li><strong>類型</strong>：線上教材（Google for Developers），共讀 4 個單元</li>
+<li><strong>原始筆記</strong>：<code>raw/S1-google-ml-recommendation-course.md</code></li>
+<li><strong>網址</strong>：<a href="https://developers.google.com/machine-learning/recommendation/overview/types">https://developers.google.com/machine-learning/recommendation/overview/types</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>推薦系統把「多到看不完」的東西縮成一小串值得給你看的清單，常見做法是三階段流程，再搭配兩種猜你喜好的方法。</p>
+<h2>重點</h2>
+<ul>
+<li>三階段：候選生成 → 打分數 → 重新排序（詳見 <a href="#concepts-three-stage-pipeline">三階段流程</a>）。</li>
+<li>YouTube 的候選生成會把數十億支影片縮小到數百到數千支。</li>
+<li><a href="#concepts-content-based-filtering">內容過濾</a>：找「和你喜歡的東西很像」的東西；不用別人的資料，但很難拓展你的興趣。</li>
+<li><a href="#concepts-collaborative-filtering">協同過濾</a>：找「和你很像的人也喜歡」的東西；會有驚喜，但有 <a href="#concepts-cold-start">冷啟動</a> 問題。</li>
+<li>回饋分成「明確」與「隱含」兩種（見 <a href="#concepts-signals-and-footprints">訊號與足跡</a>）。</li>
+</ul>
+<h2>被哪些頁面引用</h2>
+<p>推薦系統、三階段流程、內容過濾、協同過濾、冷啟動、訊號與足跡、同溫層</p><footer class="src">檔案：<code>wiki/sources/s1-google-recsys.md</code></footer></article><article id="p-sources-s2-amazon-item-to-item" data-a="sources-s2-amazon-item-to-item" hidden><h1>S2｜Amazon 論文：Item-to-Item Collaborative Filtering（2003）</h1>
+<ul>
+<li><strong>作者</strong>：Greg Linden、Brent Smith、Jeremy York</li>
+<li><strong>出處</strong>：IEEE Internet Computing 第 7 卷第 1 期（2003 年 1–2 月）</li>
+<li><strong>原始筆記</strong>：<code>raw/S2-amazon-item-to-item-2003.md</code></li>
+<li><strong>網址</strong>：<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf">https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>Amazon 把「找和你相似的人」改成「找和你買過的東西相似的商品」，事先算好相似商品表，所以能對大量顧客即時推薦。</p>
+<h2>重點</h2>
+<ul>
+<li>是「買了這個的人也買了⋯」功能背後的經典做法（見 <a href="#concepts-collaborative-filtering">協同過濾</a>）。</li>
+<li>傳統做法在約 1,000 萬名顧客、100 萬件商品的規模就不實際。</li>
+<li>例子：軟體工程師看到程式書，新手媽媽看到嬰兒玩具。</li>
+<li>購物車推薦就像超市結帳台旁的商品，但每個人看到的不同。</li>
+<li>作者自述：精準推薦的點擊與購買比例遠高於不分對象的橫幅廣告（<span class="warn">⚠</span> 作者主張，未獨立驗證）。</li>
+</ul>
+<h2>相關頁面</h2>
+<p><a href="#entities-amazon">Amazon</a>、<a href="#concepts-collaborative-filtering">協同過濾</a></p><footer class="src">檔案：<code>wiki/sources/s2-amazon-item-to-item.md</code></footer></article><article id="p-sources-s3-netflix" data-a="sources-s3-netflix" hidden><h1>S3｜Netflix 說明中心：推薦系統如何運作</h1>
+<ul>
+<li><strong>類型</strong>：官方說明頁</li>
+<li><strong>原始筆記</strong>：<code>raw/S3-netflix-help-recommendations.md</code></li>
+<li><strong>網址</strong>：<a href="https://help.netflix.com/en/node/100639">https://help.netflix.com/en/node/100639</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>Netflix 用你的觀看行為、口味相近的會員、片子資訊和觀看情境來排序，<strong>不使用年齡和性別</strong>。</p>
+<h2>重點</h2>
+<ul>
+<li>訊號：觀看紀錄與評分、相似會員、片子資訊、時段／語言／裝置／看了多久（見 <a href="#concepts-signals-and-footprints">訊號與足跡</a>）。</li>
+<li>個人化發生在「哪一列、列裡有哪些片、片的順序」好幾層。</li>
+<li>新會員可先挑幾部片暖機；之後實際行為優先，近期行為比舊行為重要（見 <a href="#concepts-cold-start">冷啟動</a>）。</li>
+</ul>
+<h2>相關頁面</h2>
+<p><a href="#entities-netflix">Netflix</a></p><footer class="src">檔案：<code>wiki/sources/s3-netflix.md</code></footer></article><article id="p-sources-s4-tiktok" data-a="sources-s4-tiktok" hidden><h1>S4｜TikTok 官方：How TikTok recommends videos #ForYou（2020-06-18）</h1>
+<ul>
+<li><strong>類型</strong>：官方新聞稿</li>
+<li><strong>原始筆記</strong>：<code>raw/S4-tiktok-foryou-2020.md</code></li>
+<li><strong>網址</strong>：<a href="https://newsroom.tiktok.com/how-tiktok-recommends-videos-for-you?lang=en">https://newsroom.tiktok.com/how-tiktok-recommends-videos-for-you?lang=en</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>TikTok 依你的互動、影片資訊、裝置設定來排序；「看完」是強訊號，而且會刻意穿插不同內容避免同溫層。</p>
+<h2>重點</h2>
+<ul>
+<li>強訊號 vs 弱訊號：看完一支較長的影片很強；和創作者同國家很弱。</li>
+<li>追蹤數不是直接因素。</li>
+<li>新使用者可先選興趣類別，沒選就先看熱門影片（見 <a href="#concepts-cold-start">冷啟動</a>）。</li>
+<li>「不感興趣」、隱藏創作者或音樂會改變推薦（見 <a href="#concepts-privacy-self-defense">隱私自保</a>）。</li>
+<li>避免重複、刻意推薦興趣外內容（見 <a href="#concepts-filter-bubble">同溫層</a>）。</li>
+</ul>
+<h2><span class="warn">⚠</span> 注意</h2>
+<p>這是 2020 年的官方說明，之後系統可能已調整。</p>
+<h2>相關頁面</h2>
+<p><a href="#entities-tiktok">TikTok</a></p><footer class="src">檔案：<code>wiki/sources/s4-tiktok.md</code></footer></article><article id="p-sources-s5-northeastern-listening" data-a="sources-s5-northeastern-listening" hidden><h1>S5｜美國東北大學研究：你的手機在偷聽嗎？（2018-07-06）</h1>
+<ul>
+<li><strong>類型</strong>：大學新聞稿，介紹 Elleen Pan、Jingjing Ren、David Choffnes、Christo Wilson 的研究</li>
+<li><strong>原始筆記</strong>：<code>raw/S5-northeastern-phone-listening-2018.md</code></li>
+<li><strong>網址</strong>：<a href="https://news.northeastern.edu/2018/07/06/is-your-smartphone-spying-on-you/">https://news.northeastern.edu/2018/07/06/is-your-smartphone-spying-on-you/</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>測了 17,000 多個熱門 Android App，<strong>沒有發現偷錄音</strong>，卻發現有 App 把螢幕截圖或錄影傳給第三方。</p>
+<h2>重點</h2>
+<ul>
+<li>其中約 9,000 個 App 具備截圖能力。</li>
+<li>沒有聲音外洩、沒有 App 開啟麥克風。</li>
+<li>例子：外送 App GoPuff 把螢幕影片傳給分析公司 Appsee。</li>
+<li>研究者認為揭露條款幫助不大，因為使用者很少讀。</li>
+</ul>
+<h2><span class="warn">⚠</span> 注意</h2>
+<ul>
+<li>研究只在 Android 上做；研究者認為其他系統不見得較安全。</li>
+<li>「沒找到證據」不等於「100% 不可能」。</li>
+<li>原始筆記中有一筆 Consumer Reports 的調查數字，<strong>不屬於本來源</strong>，Wiki 不採用。</li>
+</ul>
+<h2>相關頁面</h2>
+<p><a href="#concepts-phone-listening-myth">手機偷聽迷思</a></p><footer class="src">檔案：<code>wiki/sources/s5-northeastern-listening.md</code></footer></article><article id="p-sources-s6-ftc-tracking" data-a="sources-s6-ftc-tracking" hidden><h1>S6｜美國 FTC：網站和 App 如何蒐集與使用你的資訊</h1>
+<ul>
+<li><strong>類型</strong>：政府消費者建議（頁面標示 2023 年 9 月）</li>
+<li><strong>原始筆記</strong>：<code>raw/S6-ftc-online-tracking.md</code></li>
+<li><strong>網址</strong>：<a href="https://consumer.ftc.gov/articles/how-protect-your-privacy-online">https://consumer.ftc.gov/articles/how-protect-your-privacy-online</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>網站和 App 透過 Cookie、第三方追蹤、裝置指紋、手機廣告 ID 等方式記住你；你可以用設定把它們關小一點。</p>
+<h2>重點</h2>
+<ul>
+<li>追蹤方式整理在 <a href="#concepts-online-tracking">線上追蹤</a>。</li>
+<li>自保步驟整理在 <a href="#concepts-privacy-self-defense">隱私自保</a>。</li>
+<li>無痕模式<strong>不能</strong>阻止網站看到你的活動。</li>
+<li>廣告阻擋器只能擋一部分。</li>
+</ul><footer class="src">檔案：<code>wiki/sources/s6-ftc-tracking.md</code></footer></article><article id="p-sources-s7-apple-att" data-a="sources-s7-apple-att" hidden><h1>S7｜Apple：App 要求追蹤你的活動時（App 追蹤透明度）</h1>
+<ul>
+<li><strong>類型</strong>：官方支援文件（頁面標示 2025-12-19）</li>
+<li><strong>原始筆記</strong>：<code>raw/S7-apple-app-tracking-transparency.md</code></li>
+<li><strong>網址</strong>：<a href="https://support.apple.com/en-us/102420">https://support.apple.com/en-us/102420</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>iOS 14.5 起，App 要跨別家 App／網站追蹤你之前必須先問；你可以拒絕，或一次關掉所有詢問。</p>
+<h2>重點</h2>
+<ul>
+<li>拒絕後，App 拿不到廣告識別碼（IDFA），也不能用 email 等資訊追蹤你。</li>
+<li>拒絕不影響 App 的使用。</li>
+<li>設定路徑見 <a href="#concepts-privacy-self-defense">隱私自保</a>。</li>
+</ul><footer class="src">檔案：<code>wiki/sources/s7-apple-att.md</code></footer></article><article id="p-sources-s8-android-ad-id" data-a="sources-s8-android-ad-id" hidden><h1>S8｜Google Play：廣告 ID（Advertising ID）</h1>
+<ul>
+<li><strong>類型</strong>：官方說明（Play Console Help）</li>
+<li><strong>原始筆記</strong>：<code>raw/S8-google-advertising-id.md</code></li>
+<li><strong>網址</strong>：<a href="https://support.google.com/googleplay/android-developer/answer/6048248">https://support.google.com/googleplay/android-developer/answer/6048248</a></li>
+</ul>
+<h2>一句話摘要</h2>
+<p>Android 手機有一個廣告專用的識別碼，使用者可以重設或刪除；刪除後 App 只會讀到一串 0。</p>
+<h2>重點</h2>
+<ul>
+<li>設定路徑見 <a href="#concepts-privacy-self-defense">隱私自保</a>。</li>
+<li>頁面沒有明說開發者必須遵守使用者的重設或刪除。</li>
+</ul><footer class="src">檔案：<code>wiki/sources/s8-android-ad-id.md</code></footer></article><article id="p-outputs-slide-outline" data-a="outputs-slide-outline" hidden><h1>成果：教學簡報大綱（由 Query 產生、存回 Wiki）</h1>
+<ul>
+<li>問題：「你的手機為什麼知道你想買什麼？」要怎麼教給完全沒有技術背景的人？</li>
+<li>產生方式：讀 <a href="#index">index</a> → 讀相關概念頁 → 規劃每張投影片 → 通過 <code>plan_check.py</code> 檢查</li>
+<li>投影片數：17（另加 1 張自動產生的資料來源頁）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>標題</th>
+<th>根據的 Wiki 頁面</th>
+<th>來源</th>
+<th>隱私</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>你的手機為什麼知道你想買什麼？</td>
+<td><a href="#overview">overview</a>、<a href="#glossary">glossary</a></td>
+<td><a href="#sources-s3-netflix">S3</a></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>你有過這種經驗嗎？</td>
+<td><a href="#concepts-phone-listening-myth">phone-listening-myth</a></td>
+<td><a href="#sources-s5-northeastern-listening">S5</a></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>3</td>
+<td>大學研究：測了 17,000 多個 App</td>
+<td><a href="#concepts-phone-listening-myth">phone-listening-myth</a>、<a href="#sources-s5-northeastern-listening">s5-northeastern-listening</a></td>
+<td><a href="#sources-s5-northeastern-listening">S5</a></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>4</td>
+<td>答案：一位很懂你的「店員」</td>
+<td><a href="#concepts-recommender-system">recommender-system</a></td>
+<td><a href="#sources-s1-google-recsys">S1</a> <a href="#sources-s2-amazon-item-to-item">S2</a> <a href="#sources-s3-netflix">S3</a> <a href="#sources-s4-tiktok">S4</a></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>每個動作都是一個「訊號」</td>
+<td><a href="#concepts-signals-and-footprints">signals-and-footprints</a></td>
+<td><a href="#sources-s1-google-recsys">S1</a> <a href="#sources-s4-tiktok">S4</a></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>內容過濾：跟你喜歡的東西很像</td>
+<td><a href="#concepts-content-based-filtering">content-based-filtering</a></td>
+<td><a href="#sources-s1-google-recsys">S1</a></td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>協同過濾：跟你很像的人也喜歡</td>
+<td><a href="#concepts-collaborative-filtering">collaborative-filtering</a></td>
+<td><a href="#sources-s1-google-recsys">S1</a> <a href="#sources-s2-amazon-item-to-item">S2</a></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>像選秀節目：從幾十億挑出 10 個</td>
+<td><a href="#concepts-three-stage-pipeline">three-stage-pipeline</a></td>
+<td><a href="#sources-s1-google-recsys">S1</a></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>三個平台，各看什麼？</td>
+<td><a href="#entities-amazon">amazon</a>、<a href="#entities-netflix">netflix</a>、<a href="#entities-tiktok">tiktok</a></td>
+<td><a href="#sources-s2-amazon-item-to-item">S2</a> <a href="#sources-s3-netflix">S3</a> <a href="#sources-s4-tiktok">S4</a></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>冷啟動與同溫層</td>
+<td><a href="#concepts-cold-start">cold-start</a>、<a href="#concepts-filter-bubble">filter-bubble</a></td>
+<td><a href="#sources-s1-google-recsys">S1</a> <a href="#sources-s3-netflix">S3</a> <a href="#sources-s4-tiktok">S4</a></td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>廣告為什麼會「跟著你跑」？</td>
+<td><a href="#concepts-online-tracking">online-tracking</a></td>
+<td><a href="#sources-s6-ftc-tracking">S6</a> <a href="#sources-s8-android-ad-id">S8</a></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>12</td>
+<td>一個開關，關掉跨 App 追蹤</td>
+<td><a href="#concepts-privacy-self-defense">privacy-self-defense</a>、<a href="#sources-s7-apple-att">s7-apple-att</a></td>
+<td><a href="#sources-s7-apple-att">S7</a></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>13</td>
+<td>刪掉你的廣告 ID</td>
+<td><a href="#concepts-privacy-self-defense">privacy-self-defense</a>、<a href="#sources-s8-android-ad-id">s8-android-ad-id</a></td>
+<td><a href="#sources-s8-android-ad-id">S8</a> <a href="#sources-s6-ftc-tracking">S6</a></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>14</td>
+<td>兩個常見迷思</td>
+<td><a href="#concepts-privacy-self-defense">privacy-self-defense</a>、<a href="#sources-s6-ftc-tracking">s6-ftc-tracking</a></td>
+<td><a href="#sources-s6-ftc-tracking">S6</a></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>15</td>
+<td>你也可以反過來教演算法</td>
+<td><a href="#concepts-privacy-self-defense">privacy-self-defense</a></td>
+<td><a href="#sources-s4-tiktok">S4</a> <a href="#sources-s3-netflix">S3</a> <a href="#sources-s6-ftc-tracking">S6</a></td>
+<td>🔒</td>
+</tr>
+<tr>
+<td>16</td>
+<td>考考你</td>
+<td><a href="#concepts-phone-listening-myth">phone-listening-myth</a>、<a href="#concepts-collaborative-filtering">collaborative-filtering</a>、<a href="#concepts-privacy-self-defense">privacy-self-defense</a></td>
+<td><a href="#sources-s5-northeastern-listening">S5</a> <a href="#sources-s2-amazon-item-to-item">S2</a> <a href="#sources-s6-ftc-tracking">S6</a></td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>重點回顧</td>
+<td><a href="#overview">overview</a>、<a href="#concepts-privacy-self-defense">privacy-self-defense</a></td>
+<td><a href="#sources-s5-northeastern-listening">S5</a> <a href="#sources-s1-google-recsys">S1</a> <a href="#sources-s7-apple-att">S7</a> <a href="#sources-s8-android-ad-id">S8</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>故事線</h2>
+<p>迷思開場（手機偷聽？）→ 研究揭曉 → 推薦系統是什麼 → 兩種猜法 → 三階段 → 平台案例 → 副作用 → 線上追蹤 → 四步自保 → 小測驗 → 回顧</p>
+<p>相關：<a href="#overview">總覽</a>、<a href="#concepts-privacy-self-defense">隱私自保</a></p><footer class="src">檔案：<code>wiki/outputs/slide-outline.md</code></footer></article><article id="p-log" data-a="log" hidden><h1>log：操作流水帳（只增不改）</h1>
+<h2>[2026-11-18 15:49] discuss | 選定主題</h2>
+<ul>
+<li>第一輪討論：使用者先選了「AI Agents」，觀眾設定為「完全沒技術背景的人」。</li>
+<li>已讀 6 篇 AI Agents 資料並列出重點，使用者反問「可以推薦主題嗎」→ 提供 7 個候選主題。</li>
+</ul>
+<h2>[2026-11-18 15:54] discuss | 改主題</h2>
+<ul>
+<li>使用者改選「你的手機為什麼知道你想買什麼？（推薦演算法）」。AI Agents 的資料不沿用。</li>
+</ul>
+<h2>[2026-11-18 16:00] collect | 蒐集 6 篇</h2>
+<ul>
+<li>S1 Google ML 課程、S2 Amazon 2003、S3 Netflix、S4 TikTok 2020、S5 東北大學 2018、S6 FTC。</li>
+</ul>
+<h2>[2026-11-18 16:05] discuss | 重點確認（先討論、後生成）</h2>
+<ul>
+<li>列出 6 篇重點與簡報故事線請使用者確認。</li>
+<li>使用者決定：<strong>多放隱私與自保的內容</strong>。→ 寫進 SCHEMA（隱私投影片 ≥ 35%）。</li>
+<li>發現缺口：「自保」只有 FTC 的通用建議，缺 iPhone／Android 的具體設定 → 回到 collect。</li>
+</ul>
+<h2>[2026-11-18 16:08] collect | 補 2 篇</h2>
+<ul>
+<li>S7 Apple App 追蹤透明度、S8 Google 廣告 ID。</li>
+</ul>
+<h2>[2026-11-18 16:10] ingest | S1–S8 共 8 篇</h2>
+<ul>
+<li>建立來源頁 8 頁、概念頁 10 頁、實體頁 3 頁、overview、glossary、index。</li>
+<li>S5 原始筆記中混入一筆不屬於該來源的調查數字 → 在來源頁標註「不採用」。</li>
+</ul>
+<h2>[2026-11-18 16:20] lint | 第 1 輪：5 個問題</h2>
+<ul>
+<li>L5 ×2：collaborative-filtering.md 寫「2017 年回顧文說 Amazon 1998 年上線」並標 S2，但這句其實來自另一篇（Smith &amp; Linden 2017），只在搜尋摘要看過、沒有 ingest → <strong>刪除</strong>。</li>
+<li>L3：index.md 漏列 S8 → 補上。</li>
+<li>L2 ×2：overview、glossary 只有 index 連進來 → 從「推薦系統」頁加導覽連結。</li>
+</ul>
+<h2>[2026-11-18 16:22] lint | 第 2 輪：0 個問題 <span class="ok">✅</span></h2>
+<h2>[2026-11-18 16:30] query | 「怎麼把這個主題教給沒有技術背景的人？」</h2>
+<ul>
+<li>讀 index → 10 個概念頁 → 產生 slides/plan.json（17 張投影片，每張列出 wiki_refs）。</li>
+</ul>
+<h2>[2026-11-18 16:32] check | 簡報規劃檢查 run 1–5</h2>
+<ul>
+<li>run 1：3 個問題（封面「約 15 分鐘」無根據；封面用了「演算法」沒解釋；「回饋」沒解釋）。</li>
+<li>run 2–3：發現<strong>檢查器自己有漏洞</strong>：數字比對時被連結裡的「S3」和清單編號「3.」騙過，讓總結頁「花 3 分鐘」這個沒有根據的數字通過 → 修正比對規則後抓到。</li>
+<li>run 4：修正簡報規劃後 0 個問題。</li>
+<li>run 5：新增 C7（每張投影片的來源要明確指定，且必須出現在它引用的 Wiki 頁面）→ 0 個問題。</li>
+</ul>
+<h2>[2026-11-18 16:40] render-check | 版面檢查 run 1–2</h2>
+<ul>
+<li>run 1：11 個問題（頁尾來源列過長 ×6、插圖文字超出邊界 ×3、插圖文字重疊 ×1、測驗頁溢出 4px ×1）。</li>
+<li>看截圖時另外發現：頁尾列出的是「整個 Wiki 頁面引用過的所有來源」，iPhone 那頁也掛上 Netflix、TikTok → 出處錯誤。改為在規劃階段逐頁指定來源（即上面的 C7）。</li>
+<li>run 2：0 個問題。</li>
+</ul>
+<h2>[2026-11-18 16:45] file-back | 簡報大綱存回 wiki/outputs/slide-outline.md</h2>
+<ul>
+<li>lint run 3：新頁面成為孤兒頁 → 從 overview 連過去 → lint run 4：0 個問題。</li>
+</ul>
+<h2>[2026-11-18 16:39] publish | Wiki 網站與簡報上線</h2>
+<ul>
+<li>Wiki：<a href="https://claude.ai/artifact/KuCtMgHbu3gpuUn7xvoCc6">https://claude.ai/artifact/KuCtMgHbu3gpuUn7xvoCc6</a></li>
+<li>簡報：<a href="https://claude.ai/artifact/KmR8HJwmakSRe6FpjRzMKP">https://claude.ai/artifact/KmR8HJwmakSRe6FpjRzMKP</a></li>
+<li>加上 Wiki 連結重新生成簡報 → plan-check run 6：0 個問題；render-check run 3：0 個問題。</li>
+</ul>
+<h2>[2026-11-18 16:55] schema | 依第一次執行的反思修訂 SCHEMA</h2>
+<ul>
+<li>加入 C7（來源在規劃階段指定）、版面問題分「排版／內容」兩種退回、存回後必跑 lint、檢查器要用已知錯誤例子自我測試、待辦：collect 節點檢查 raw 筆記純度。</li>
+<li>報告文件：<a href="https://claude.ai/artifact/8yZBm422hf5W48RPSLT9oj">https://claude.ai/artifact/8yZBm422hf5W48RPSLT9oj</a></li>
+</ul>
+<h2>[2026-11-18 16:58] fix | 「看教學簡報」按鈕會跳到登入頁</h2>
+<ul>
+<li>原因：按鈕開新分頁連到另一個獨立頁面，該分頁未登入。</li>
+<li>修正：簡報直接內嵌在 Wiki 網站裡（同頁切換），簡報頁尾的 Wiki 標籤可跳回對應 Wiki 頁。render-check run 4：0 個問題。</li>
+</ul>
+<h2>[2026-11-18 17:30] project | 建立「演算法生活課」講義網站</h2>
+<ul>
+<li>把 Wiki 與教學簡報搬進新專案 algo-life-lessons，訂出 CLAUDE.md / AGENTS.md 規則。</li>
+<li>講義 1 recsys-intro：由上一份教學簡報轉成新格式。check.py 第一輪抓到 7 個問題：data-explains 用空白分隔把「廣告 ID」拆開（改用逗號）、插圖裡的假廣告 ID 數字、回顧頁插圖用 1 2 3 編號（改 ①②③）。</li>
+<li>講義 2 privacy-checkup：照 CLAUDE.md 第 9 節 SOP 新增（使用者授權直接製作，大綱未另行確認）。原定標題「10 分鐘」沒有根據，改為「幫手機做一次隱私健檢」。check.py 第一次即通過。</li>
+<li>範本 _template：寫作說明裡的「2～3」「90 字」被 K7 擋下 → 改成不含數字的說明。</li>
+</ul>
+<h2>[2026-11-18 17:30] lesson | privacy-checkup</h2>
+<h2>[2026-11-18 17:20] fix | 站內連結在本機打不開</h2>
+<ul>
+<li>使用者直接雙擊 index.html 開啟（file://），連結寫成 <code>lessons/recsys-intro/</code> 只會顯示資料夾清單。</li>
+<li>所有站內連結改為明確指到 index.html；check.py K10 新增「不可只寫到資料夾」，並用舊寫法確認會被擋下。</li>
+</ul><footer class="src">檔案：<code>wiki/log.md</code></footer></article><article id="p-schema" data-a="schema" hidden><h1>SCHEMA：推薦演算法 LLM Wiki 的規則檔</h1>
+<blockquote>
+<p>這份檔案是給 LLM 看的「維護守則」，讓每次對話都用同一套規則維護 Wiki（參考 Karpathy 的 LLM Wiki pattern）。</p>
+</blockquote>
+<h2>主題</h2>
+<p><strong>你的手機為什麼知道你想買什麼？</strong>：推薦演算法、線上追蹤與隱私自保。
+目標讀者：完全沒有技術背景的人。依使用者討論後的決定，<strong>隱私與自保要占較高比重</strong>。</p>
+<h2>三層結構</h2>
+<table>
+<thead>
+<tr>
+<th>層</th>
+<th>位置</th>
+<th>誰負責</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始資料</td>
+<td><code>raw/</code></td>
+<td>人蒐集，LLM 只讀</td>
+<td>不可修改；每篇記下網址、發布日期、擷取日期</td>
+</tr>
+<tr>
+<td>Wiki</td>
+<td><code>wiki/</code></td>
+<td>LLM 撰寫與維護</td>
+<td>人閱讀、人審核；LLM 負責交叉連結</td>
+</tr>
+<tr>
+<td>規則</td>
+<td><code>SCHEMA.md</code></td>
+<td>人與 LLM 一起修訂</td>
+<td>流程改了就更新這份檔案</td>
+</tr>
+</tbody>
+</table>
+<h2>頁面類型</h2>
+<ul>
+<li><code>wiki/sources/</code>：每篇原始資料一頁摘要（來源編號 S1–S8）</li>
+<li><code>wiki/concepts/</code>：概念頁（一頁一個概念）</li>
+<li><code>wiki/entities/</code>：公司／產品頁（Amazon、Netflix、TikTok）</li>
+<li><code>wiki/outputs/</code>：查詢產生的成果（例如簡報大綱），<strong>好的查詢結果要存回 Wiki</strong></li>
+<li><code>wiki/overview.md</code>：全主題總覽；<code>wiki/glossary.md</code>：術語表（白話解釋）</li>
+<li><code>wiki/index.md</code>：所有頁面的目錄（每次 ingest 都要更新）；<code>wiki/log.md</code>：只增不改的流水帳</li>
+</ul>
+<h2>寫作規則</h2>
+<ol>
+<li><strong>每一個事實都要標來源</strong>：句尾寫 <code>[S1](../sources/s1-google-recsys.md)</code> 這種格式。</li>
+<li><strong>含有數字的句子，同一行一定要有來源標註</strong>（lint 會檢查）。</li>
+<li>用自己的話改寫，不大段複製原文；引用原文一次不超過 15 個字。</li>
+<li>專有名詞第一次出現時要附白話解釋，並收錄到 <code>glossary.md</code>。</li>
+<li>每個概念頁至少連到 1 個其他概念頁（避免孤兒頁）。</li>
+<li>推測或延伸要標示 <code>（推論）</code>，不可寫成來源說的話。</li>
+<li>來源之間有出入時，寫進該概念頁的「<span class="warn">⚠</span> 注意」段落，不要自行裁決。</li>
+</ol>
+<h2>操作流程</h2>
+<h3>Ingest（先討論、後生成）</h3>
+<ol>
+<li>讀原始資料 → 2. <strong>先向使用者列出重點，等確認或調整</strong> → 3. 寫來源摘要頁 → 4. 更新相關概念頁與實體頁 → 5. 更新 <code>index.md</code> → 6. 在 <code>log.md</code> 追加一筆 <code>## [日期] ingest | 標題</code>。</li>
+</ol>
+<h3>Query</h3>
+<p>先讀 <code>index.md</code> 找相關頁面 → 讀頁面 → 帶來源回答 → 有價值的回答存到 <code>wiki/outputs/</code>。</p>
+<h3>Lint（<code>pipeline/lint.py</code>）</h3>
+<p>斷掉的連結、孤兒頁、未標來源的數字、未被引用的來源、index 漏列的頁面、術語未收錄於術語表。</p>
+<h2>簡報生成規則（從 Wiki 產生教學簡報）</h2>
+<ul>
+<li>每張投影片都要列出 <code>wiki_refs</code>（它根據哪些 Wiki 頁面）。</li>
+<li>投影片上的數字，必須能在它引用的 Wiki 頁面裡找到。</li>
+<li>每張投影片正文不超過 90 個中文字（給初學者看，字少一點）。</li>
+<li>術語表裡的專有名詞出現在投影片上時，要在同一張投影片解釋或用比喻帶過。</li>
+<li>隱私與自保相關的投影片，至少要占內容投影片的 35%。</li>
+<li>每張投影片在<strong>規劃階段</strong>就要寫明 <code>sources</code>（1–4 個），且必須是它引用的 Wiki 頁面真的有引用的來源（C7）。生成節點只負責排版，不自己推測來源。</li>
+</ul>
+<h2>流程圖（loop / graph，2026-11-18 第一次執行後修訂）</h2>
+<pre><code>collect → discuss(人) → ingest → lint ─✗→ ingest
+                ↑ 發現缺口                  ✓
+                └──────────────── query/plan → plan_check ─✗→ plan
+                                                 ✓
+                                   generate → render_check ─✗→ generate（排版問題）
+                                                 │         └✗→ plan（內容造成的版面問題，例如來源太多）
+                                                 ✓
+                                   file-back（大綱存回 wiki/outputs/）→ lint → publish
+</code></pre>
+<h2>第一次執行後新增的規則</h2>
+<ol>
+<li>來源標示從生成節點移到規劃節點（C7）。</li>
+<li>版面檢查失敗時，先判斷是排版問題還是內容問題；內容問題回到規劃。</li>
+<li>查詢成果存回 Wiki 之後，一定要再跑一次 lint。</li>
+<li>檢查器也要被檢查：數字比對前先去掉來源標籤 <code>[S3]</code>、連結網址與清單編號；改了檢查器要用一個已知錯誤的例子確認它抓得到。</li>
+<li>待辦：在 collect 節點檢查 raw 筆記只包含該網址的內容（這次 S5 筆記混入了別的調查數字）。</li>
+</ol><footer class="src">檔案：<code>SCHEMA.md</code></footer></article><article id="p-raw-s1-google-ml-recommendation-course" data-a="raw-s1-google-ml-recommendation-course" hidden><pre><code class="language-yaml">id: S1
+title: Recommendation Systems（Google Machine Learning 課程，共 4 個單元）
+publisher: Google for Developers
+urls:
+  - &lt;https://developers.google.com/machine-learning/recommendation/overview/types&gt;
+  - &lt;https://developers.google.com/machine-learning/recommendation/content-based/basics&gt;
+  - &lt;https://developers.google.com/machine-learning/recommendation/content-based/summary&gt;
+  - &lt;https://developers.google.com/machine-learning/recommendation/collaborative/basics&gt;
+  - &lt;https://developers.google.com/machine-learning/recommendation/collaborative/summary&gt;
+published: 未標示（線上課程，持續更新）
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<h2>架構（overview/types）</h2>
+<ul>
+<li>常見三階段：候選生成（從巨大資料庫快速挑出小集合，可有多個候選來源）→ 打分數（較精細的模型排序，挑出約 10 個顯示）→ 重新排序（移除使用者明確不喜歡的、提高新內容、照顧多樣性與公平性）。</li>
+<li>例子：YouTube 的候選生成把數十億支影片縮小到數百到數千支。</li>
+</ul>
+<h2>內容過濾（content-based）</h2>
+<ul>
+<li>推薦「和使用者已經喜歡的東西相似」的項目；靠項目特徵 + 使用者過去行為或明確回饋；不需要其他使用者的資料。</li>
+<li>App 商店例子：特徵有「教育」「休閒」「健康」、發行商；使用者也放在同一組特徵上；用內積（共同特徵數）打分數。例題中教育類 App 得 2 分最高、健康類 1 分、休閒遊戲 0 分。</li>
+<li>優點：不需要別人的資料、容易擴充；能抓到小眾興趣。</li>
+<li>缺點：特徵多半要人工設計，模型好壞受限於特徵；大多只推薦和既有興趣相符的東西，很難拓展興趣。</li>
+</ul>
+<h2>協同過濾（collaborative）</h2>
+<ul>
+<li>同時利用「使用者之間」與「項目之間」的相似度；可以因為「相似的人喜歡」而推薦你沒接觸過的東西（意外的驚喜）。</li>
+<li>回饋矩陣：列是使用者、欄是項目；回饋分「明確」（打分數）與「隱含」（從行為推測，例如看完一部片）。</li>
+<li>電影例子：用「兒童↔成人」「大片↔藝術片」兩個軸，把使用者和電影放進同一個空間，越靠近越可能喜歡；實務上這些座標（embedding）是從資料自動學出來的。</li>
+<li>優點：不需領域知識；有驚喜；只需回饋矩陣就能起步。</li>
+<li>缺點：冷啟動——訓練時沒看過的新項目無法產生 embedding；年齡、國家等附加特徵不好放進去。</li>
+</ul><footer class="src">檔案：<code>raw/S1-google-ml-recommendation-course.md</code></footer></article><article id="p-raw-s2-amazon-item-to-item-2003" data-a="raw-s2-amazon-item-to-item-2003" hidden><pre><code class="language-yaml">id: S2
+title: &quot;Amazon.com Recommendations: Item-to-Item Collaborative Filtering&quot;
+authors: Greg Linden, Brent Smith, Jeremy York
+venue: IEEE Internet Computing, Vol. 7, No. 1, pp. 76–80（2003 年 1–2 月）
+url: &lt;https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf&gt;
+doi: 10.1109/MIC.2003.1167344
+related: Smith &amp; Linden, &quot;Two Decades of Recommender Systems at Amazon.com&quot;, IEEE Internet Computing 2017（回顧文，提到 Amazon 於 1998 年上線以商品為基礎的協同過濾）
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<ul>
+<li>核心想法：不是去找「和你相似的顧客」，而是針對你買過或評分過的每一件商品，找「相似的商品」，再合併成推薦清單（商品配商品，而不是人配人）。</li>
+<li>離線先算好「相似商品表」：顧客常一起買的商品；相似度用 cosine 計算。</li>
+<li>線上步驟很快：只跟你買過／評過的商品數量有關，跟商品目錄大小、顧客總數無關，所以能即時推薦。</li>
+<li>傳統（以使用者為基礎的）協同過濾規模一大就吃不消：文中說大約 1,000 萬名顧客、100 萬件商品時就不實際，除非抽樣或縮減資料，但會犧牲品質。</li>
+<li>例子：網站會依顧客改變，軟體工程師看到程式設計書，新手媽媽看到嬰兒玩具。</li>
+<li>購物車推薦：依購物車裡的東西推薦，像超市結帳台旁的衝動購買商品，但是為每個人量身挑選。</li>
+<li>作者主張：精準推薦的點擊率與轉換率遠高於橫幅廣告、暢銷榜這類不分對象的內容（作者自述，文中未獨立驗證）。</li>
+</ul><footer class="src">檔案：<code>raw/S2-amazon-item-to-item-2003.md</code></footer></article><article id="p-raw-s3-netflix-help-recommendations" data-a="raw-s3-netflix-help-recommendations" hidden><pre><code class="language-yaml">id: S3
+title: How Netflix's Recommendations System Works（Netflix 說明中心）
+publisher: Netflix Help Center
+url: &lt;https://help.netflix.com/en/node/100639&gt;
+published: 未標示
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<ul>
+<li>使用的訊號：你的互動（觀看紀錄、對其他片的評分）、口味相近的其他會員看什麼、片子資訊（類型、分類、演員、年份）、情境（時段、偏好語言、使用的裝置、看了多久）。</li>
+<li>不使用：年齡、性別等人口統計資料不參與決策。</li>
+<li>排序：個人化發生在好幾層——哪一列出現（例如「繼續觀看」）、列裡有哪些片、片的順序；最推薦的放在最上面、每列最左邊。</li>
+<li>新會員：可以先挑幾部喜歡的片「暖機」；跳過的話會看到多樣的熱門片；開始看片後，實際行為會蓋過初始選擇，而且近期行為比舊行為重要。</li>
+<li>持續改進：每次造訪的回饋（點開哪些、有沒有看完、評分）都用來更新演算法。</li>
+<li>名詞：演算法＝電腦解決問題時遵循的一組規則。</li>
+</ul><footer class="src">檔案：<code>raw/S3-netflix-help-recommendations.md</code></footer></article><article id="p-raw-s4-tiktok-foryou-2020" data-a="raw-s4-tiktok-foryou-2020" hidden><pre><code class="language-yaml">id: S4
+title: &quot;How TikTok recommends videos #ForYou&quot;
+publisher: TikTok Newsroom
+url: &lt;https://newsroom.tiktok.com/how-tiktok-recommends-videos-for-you?lang=en&gt;
+published: 2020-06-18
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<ul>
+<li>排序因素：使用者互動（按讚、分享、追蹤、留言、自己發的內容）；影片資訊（字幕、音樂、hashtag）；裝置與帳號設定（語言、國家、裝置類型）——最後這類權重較低，因為不是使用者主動表達的偏好。</li>
+<li>權重：強訊號比弱訊號重要。例如把一支較長的影片看完是強訊號；和創作者在同一個國家是弱訊號。</li>
+<li>追蹤人數不是直接因素：大帳號觀看多是因為粉絲多，但追蹤數和過去爆紅影片不是直接輸入。</li>
+<li>新使用者：可以先選興趣類別（例如寵物、旅遊）；沒選的人先看到一般熱門影片；之後的按讚、留言、重播會逐步調整推薦。</li>
+<li>「不感興趣」：長按影片可選「不感興趣」、隱藏某創作者或某段音樂的影片、檢舉；這些動作會影響之後的推薦。</li>
+<li>避免同溫層（filter bubble）：不連續推同一個音樂或創作者；排除重複、看過的內容和垃圾內容；有時刻意推薦你興趣以外、或不算熱門的影片，幫助發現新創作者與觀點。</li>
+</ul><footer class="src">檔案：<code>raw/S4-tiktok-foryou-2020.md</code></footer></article><article id="p-raw-s5-northeastern-phone-listening-2018" data-a="raw-s5-northeastern-phone-listening-2018" hidden><pre><code class="language-yaml">id: S5
+title: Is your smartphone spying on you?（美國東北大學新聞稿，介紹 Pan、Ren、Choffnes、Wilson 的研究）
+publisher: Northeastern University News
+url: &lt;https://news.northeastern.edu/2018/07/06/is-your-smartphone-spying-on-you/&gt;
+published: 2018-07-06
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<ul>
+<li>研究動機：查證「手機偷偷錄下對話、賣給公司來打精準廣告」這個流傳已久的都市傳說。</li>
+<li>方法：用學生寫的自動測試程式，分析 17,000 多個最熱門的 Android App。</li>
+<li>其中約 9,000 個 App 有截圖的能力。</li>
+<li>結果一：沒有找到錄下對話的證據——沒有聲音外洩，也沒有任何 App 啟動麥克風。</li>
+<li>結果二：有些 App 會把使用者畫面的截圖、螢幕錄影傳給第三方。例子：外送服務 GoPuff 把螢幕影片傳給行動分析公司 Appsee；被抓到的那次傳的是郵遞區號，但研究者說也可能包含信用卡號。</li>
+<li>研究者認為兩家公司看起來沒有惡意，開發者常用這類資料除錯、改善體驗。</li>
+<li>研究在 Android 上做，但研究者認為其他作業系統不見得比較安全。</li>
+<li>研究者認為光靠揭露條款保護不了使用者，因為使用者很少讀；要等手機廠商改作業系統設計，這個漏洞才會補上。</li>
+<li>另：Consumer Reports 2019 年調查 1,006 位美國成年人，43% 有智慧型手機的人相信手機會未經允許錄音（來自搜尋結果的補充，非本篇）。</li>
+</ul><footer class="src">檔案：<code>raw/S5-northeastern-phone-listening-2018.md</code></footer></article><article id="p-raw-s6-ftc-online-tracking" data-a="raw-s6-ftc-online-tracking" hidden><pre><code class="language-yaml">id: S6
+title: How Websites and Apps Collect and Use Your Information（FTC 消費者建議）
+publisher: U.S. Federal Trade Commission（美國聯邦貿易委員會）
+url: &lt;https://consumer.ftc.gov/articles/how-protect-your-privacy-online&gt;
+published: 2023-09（頁面標示）
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<h2>追蹤怎麼運作</h2>
+<ul>
+<li>Cookie 與像素（pixel）：網站可用來在你離開後仍認得你。</li>
+<li>第一方追蹤：你造訪的網站自己追蹤你。</li>
+<li>第三方追蹤：你造訪的網站讓別家公司追蹤你；這些公司能跨大多數網站跟著你，進而投放精準廣告。</li>
+<li>裝置指紋：用瀏覽器獨特的設定組合來辨認你。</li>
+<li>手機廣告 ID：廣告商可以用手機上的唯一識別碼追蹤你在 App 裡的活動。</li>
+<li>跨裝置追蹤：公司可能把你在筆電和手機上的活動連起來。</li>
+</ul>
+<h2>你可以做的事</h2>
+<ul>
+<li>刪除 Cookie、清除瀏覽與搜尋紀錄；手機上刪除或重設用來追蹤你的識別碼。</li>
+<li>調整瀏覽器設定，阻擋網站看你的瀏覽紀錄或位置；無痕模式並不能阻止網站看到你的活動。</li>
+<li>到手機隱私設定的「廣告」區，關閉作業系統廠商的個人化廣告。</li>
+<li>管理 App 權限：關掉不必要的位置、聯絡人、相片等權限，刪掉要了不需要權限的 App。</li>
+<li>廣告阻擋器可以擋部分追蹤器，但擋不了全部，也擋不了病毒。</li>
+<li>使用業界退出工具（DAA 的 AdChoices、NAI 退出），每台裝置、每個瀏覽器都要各做一次。</li>
+<li>Cookie 通知只允許「網站運作必要」的 Cookie。</li>
+<li>也要檢查智慧電視、串流裝置、社群帳號的隱私設定。</li>
+</ul><footer class="src">檔案：<code>raw/S6-ftc-online-tracking.md</code></footer></article><article id="p-raw-s7-apple-app-tracking-transparency" data-a="raw-s7-apple-app-tracking-transparency" hidden><pre><code class="language-yaml">id: S7
+title: If an app asks to track your activity（Apple 支援文件，App 追蹤透明度）
+publisher: Apple Support
+url: &lt;https://support.apple.com/en-us/102420&gt;
+published: 2025-12-19（頁面標示）
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<ul>
+<li>App 追蹤透明度：從 iOS 14.5 起，App 要跨其他公司的 App 與網站追蹤你之前，必須先問你。</li>
+<li>Apple 對「追蹤」的定義：把這個 App 裡能認出你或你裝置的資訊，和別家公司 App、網站、地點收集的資訊連在一起，用於精準廣告或廣告成效衡量，或把資訊分享給資料仲介商。</li>
+<li>跳出詢問時可選「允許」或「要求 App 不要追蹤」；不管選哪個都能完整使用 App。</li>
+<li>一次關掉：設定 &gt; 隱私權與安全性 &gt; 關閉「允許 App 要求追蹤」；關閉時，所有提出要求的 App 都視同你選了「要求 App 不要追蹤」。逐一管理：設定 &gt; 隱私權與安全性 &gt; 追蹤。</li>
+<li>拒絕後：開發者拿不到系統廣告識別碼（IDFA），也不能用 email 等其他可識別資訊追蹤你。</li>
+</ul><footer class="src">檔案：<code>raw/S7-apple-app-tracking-transparency.md</code></footer></article><article id="p-raw-s8-google-advertising-id" data-a="raw-s8-google-advertising-id" hidden><pre><code class="language-yaml">id: S8
+title: Advertising ID（Google Play Console 說明）
+publisher: Google Play Console Help
+url: &lt;https://support.google.com/googleplay/android-developer/answer/6048248&gt;
+published: 未標示
+captured: 2026-11-18
+</code></pre>
+<h1>擷取筆記（改寫，不是原文）</h1>
+<ul>
+<li>廣告 ID：Google Play 服務提供、使用者可以重設也可以刪除的廣告用唯一識別碼。</li>
+<li>刪除後：識別碼被移除，App 再去讀只會拿到一串 0。</li>
+<li>使用者設定路徑（新版 Android）：設定 &gt; 隱私權 &gt; 廣告，點「重設廣告 ID」或「刪除廣告 ID」。部分舊版本：設定 &gt; 隱私權 &gt; 進階 &gt; 廣告，開啟「停用廣告個人化」。</li>
+<li>對開發者：上架 Google Play 的新 App 與更新，做廣告用途時要用廣告 ID（有的話），不能改用其他裝置識別碼。</li>
+<li>（頁面沒有明說開發者必須遵守使用者的重設／刪除。）</li>
+</ul><footer class="src">檔案：<code>raw/S8-google-advertising-id.md</code></footer></article><article id="p-checks-lint-run-1" data-a="checks-lint-run-1" hidden><h1>Lint 報告：lint-run-1</h1>
+<ul>
+<li>頁面數：25</li>
+<li>問題數：<strong>5</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代碼</th>
+<th>頁面</th>
+<th>行</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L2</td>
+<td>glossary.md</td>
+<td>—</td>
+<td>孤兒頁：除了 index 以外沒有頁面連到這裡</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>overview.md</td>
+<td>—</td>
+<td>孤兒頁：除了 index 以外沒有頁面連到這裡</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>sources/s8-android-ad-id.md</td>
+<td>—</td>
+<td>index.md 沒有列出這一頁</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>concepts/collaborative-filtering.md</td>
+<td>14</td>
+<td>數字「2017」在引用來源 ['S2'] 的原始筆記正文中找不到</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>concepts/collaborative-filtering.md</td>
+<td>14</td>
+<td>數字「1998」在引用來源 ['S2'] 的原始筆記正文中找不到</td>
+</tr>
+</tbody>
+</table><footer class="src">檔案：<code>checks/lint-run-1.md</code></footer></article><article id="p-checks-lint-run-2" data-a="checks-lint-run-2" hidden><h1>Lint 報告：lint-run-2</h1>
+<ul>
+<li>頁面數：25</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/lint-run-2.md</code></footer></article><article id="p-checks-lint-run-3" data-a="checks-lint-run-3" hidden><h1>Lint 報告：lint-run-3</h1>
+<ul>
+<li>頁面數：26</li>
+<li>問題數：<strong>1</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代碼</th>
+<th>頁面</th>
+<th>行</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L2</td>
+<td>outputs/slide-outline.md</td>
+<td>—</td>
+<td>孤兒頁：除了 index 以外沒有頁面連到這裡</td>
+</tr>
+</tbody>
+</table><footer class="src">檔案：<code>checks/lint-run-3.md</code></footer></article><article id="p-checks-lint-run-4" data-a="checks-lint-run-4" hidden><h1>Lint 報告：lint-run-4</h1>
+<ul>
+<li>頁面數：26</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/lint-run-4.md</code></footer></article><article id="p-checks-lint-run-5" data-a="checks-lint-run-5" hidden><h1>Lint 報告：lint-run-5</h1>
+<ul>
+<li>頁面數：26</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/lint-run-5.md</code></footer></article><article id="p-checks-lint-run-6" data-a="checks-lint-run-6" hidden><h1>Lint 報告：lint-run-6</h1>
+<ul>
+<li>頁面數：26</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/lint-run-6.md</code></footer></article><article id="p-checks-plan-check-run-1" data-a="checks-plan-check-run-1" hidden><h1>簡報規劃檢查：plan-check-run-1</h1>
+<ul>
+<li>投影片數：17（內容頁 14，其中隱私／自保 7，比例 50%）</li>
+<li>問題數：<strong>3</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代碼</th>
+<th>投影片</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C2</td>
+<td>01-cover</td>
+<td>數字「15」在引用的 Wiki 頁面中找不到</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>01-cover</td>
+<td>用到術語「演算法」但這張和之前的投影片都沒有解釋</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>05-signals</td>
+<td>用到術語「回饋」但這張和之前的投影片都沒有解釋</td>
+</tr>
+</tbody>
+</table><footer class="src">檔案：<code>checks/plan-check-run-1.md</code></footer></article><article id="p-checks-plan-check-run-2" data-a="checks-plan-check-run-2" hidden><h1>簡報規劃檢查：plan-check-run-2</h1>
+<ul>
+<li>投影片數：17（內容頁 14，其中隱私／自保 7，比例 50%）</li>
+<li>問題數：<strong>3</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代碼</th>
+<th>投影片</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C2</td>
+<td>01-cover</td>
+<td>數字「15」在引用的 Wiki 頁面中找不到</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>01-cover</td>
+<td>用到術語「演算法」但這張和之前的投影片都沒有解釋</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>05-signals</td>
+<td>用到術語「回饋」但這張和之前的投影片都沒有解釋</td>
+</tr>
+</tbody>
+</table><footer class="src">檔案：<code>checks/plan-check-run-2.md</code></footer></article><article id="p-checks-plan-check-run-3" data-a="checks-plan-check-run-3" hidden><h1>簡報規劃檢查：plan-check-run-3</h1>
+<ul>
+<li>投影片數：17（內容頁 14，其中隱私／自保 7，比例 50%）</li>
+<li>問題數：<strong>4</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代碼</th>
+<th>投影片</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C2</td>
+<td>01-cover</td>
+<td>數字「15」在引用的 Wiki 頁面中找不到</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>01-cover</td>
+<td>用到術語「演算法」但這張和之前的投影片都沒有解釋</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>05-signals</td>
+<td>用到術語「回饋」但這張和之前的投影片都沒有解釋</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>17-summary</td>
+<td>數字「3」在引用的 Wiki 頁面中找不到</td>
+</tr>
+</tbody>
+</table><footer class="src">檔案：<code>checks/plan-check-run-3.md</code></footer></article><article id="p-checks-plan-check-run-4" data-a="checks-plan-check-run-4" hidden><h1>簡報規劃檢查：plan-check-run-4</h1>
+<ul>
+<li>投影片數：17（內容頁 14，其中隱私／自保 7，比例 50%）</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/plan-check-run-4.md</code></footer></article><article id="p-checks-plan-check-run-5" data-a="checks-plan-check-run-5" hidden><h1>簡報規劃檢查：plan-check-run-5</h1>
+<ul>
+<li>投影片數：17（內容頁 14，其中隱私／自保 7，比例 50%）</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/plan-check-run-5.md</code></footer></article><article id="p-checks-plan-check-run-6" data-a="checks-plan-check-run-6" hidden><h1>簡報規劃檢查：plan-check-run-6</h1>
+<ul>
+<li>投影片數：17（內容頁 14，其中隱私／自保 7，比例 50%）</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/plan-check-run-6.md</code></footer></article><article id="p-checks-render-check-run-1" data-a="checks-render-check-run-1" hidden><h1>版面檢查：render-check-run-1</h1>
+<ul>
+<li>投影片數：18</li>
+<li>問題數：<strong>11</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代碼</th>
+<th>投影片</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R2</td>
+<td>01-cover</td>
+<td>頁尾高度 103px（超過 2 行）</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>05-signals</td>
+<td>插圖文字「看完長影片」超出插圖邊界</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>05-signals</td>
+<td>插圖文字「同一個國家」超出插圖邊界</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>11-tracking</td>
+<td>插圖文字「A 網站、B App、C 商店」超出插圖邊界</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>11-tracking</td>
+<td>插圖文字「追蹤公司」和「🗂️」重疊</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>12-ios</td>
+<td>頁尾高度 103px（超過 2 行）</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>13-android</td>
+<td>頁尾高度 103px（超過 2 行）</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>14-browser</td>
+<td>頁尾高度 103px（超過 2 行）</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>16-quiz</td>
+<td>內容高度 621px &gt; 可用 617px</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>16-quiz</td>
+<td>頁尾高度 103px（超過 2 行）</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>17-summary</td>
+<td>頁尾高度 103px（超過 2 行）</td>
+</tr>
+</tbody>
+</table><footer class="src">檔案：<code>checks/render-check-run-1.md</code></footer></article><article id="p-checks-render-check-run-2" data-a="checks-render-check-run-2" hidden><h1>版面檢查：render-check-run-2</h1>
+<ul>
+<li>投影片數：18</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/render-check-run-2.md</code></footer></article><article id="p-checks-render-check-run-3" data-a="checks-render-check-run-3" hidden><h1>版面檢查：render-check-run-3</h1>
+<ul>
+<li>投影片數：18</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/render-check-run-3.md</code></footer></article><article id="p-checks-render-check-run-4" data-a="checks-render-check-run-4" hidden><h1>版面檢查：render-check-run-4</h1>
+<ul>
+<li>投影片數：18</li>
+<li>問題數：<strong>0</strong></li>
+</ul>
+<p><span class="ok">✅</span> 全部通過</p><footer class="src">檔案：<code>checks/render-check-run-4.md</code></footer></article></main></div><script>
+const arts=[...document.querySelectorAll('article')],links=[...document.querySelectorAll('nav li a')];
+const sv=document.getElementById('slides-view'),sb=document.getElementById('slides-btn');
+function go(){if(sv){const on=location.hash==='#slides';sv.hidden=!on;sb.textContent=on?'← 回到 Wiki':'▶ 看教學簡報';sb.href=on?'#index':'#slides';
+ if(on){const f=document.getElementById('slides-frame');setTimeout(()=>f.focus(),50);return}}
+ let a=location.hash.slice(1)||'index';if(!document.getElementById('p-'+a))a='index';
+ arts.forEach(x=>x.hidden=x.dataset.a!==a);links.forEach(l=>l.classList.toggle('on',l.dataset.a===a));
+ const on=links.find(l=>l.dataset.a===a);if(on){on.closest('details').open=true}
+ window.scrollTo(0,0);document.querySelector('nav').classList.remove('open')}
+addEventListener('hashchange',go);go();
+addEventListener('message',e=>{if(e.data&&typeof e.data.wiki==='string')location.hash=e.data.wiki});
+document.getElementById('q').addEventListener('input',e=>{const v=e.target.value.trim().toLowerCase();
+ links.forEach(l=>{const art=document.getElementById('p-'+l.dataset.a);const hit=!v||l.textContent.toLowerCase().includes(v)||(art&&art.textContent.toLowerCase().includes(v));
+ l.parentElement.style.display=hit?'':'none';if(v&&hit)l.closest('details').open=true})});
+document.getElementById('menu').onclick=()=>document.querySelector('nav').classList.toggle('open');
+</script></body></html>
