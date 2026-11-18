@@ -2,7 +2,7 @@
 
 給**完全沒有技術背景的人**的講義網站：用生活比喻看懂推薦演算法、線上追蹤，以及怎麼保護自己的隱私。
 
-- 🌐 **網站**：`https://<你的 GitHub 帳號>.github.io/algo-life-lessons/`（開啟 GitHub Pages 後的網址）
+- 🌐 **網站**：`https://weicheng-auzixe.github.io/algo-life-lessons/`（開啟 GitHub Pages 後的網址）
 - 📘 **AI 規則**：[`CLAUDE.md`](CLAUDE.md)（其他 AI 工具看 [`AGENTS.md`](AGENTS.md)）
 
 ## 目前的講義
